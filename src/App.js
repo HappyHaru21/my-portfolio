@@ -4,7 +4,7 @@ import { Mail, Linkedin, Github, ChevronsUp, Menu, X } from 'lucide-react';
 const portfolioData = {
   name: "Sidak Deep Singh",
   title: "  AI & ML Engineer | Full-Stack Developer",
-  summary: "Can't carry a tune, but happily carry 100 million CNN parameters. I build ML and software solutions using Python, PyTorch, TensorFlow, MERN, Docker, and RESTful APIs. I enjoy brainstorming ideas and turning them into reality. Code sings louder than any voice.",
+  summary: "While I can't carry a tune, I'm passionate about orchestrating complex ML models and full-stack applications. With a toolkit including Python, PyTorch, TensorFlow, and MERN, I enjoy transforming abstract concepts into tangible, elegant solutions.",
   resumeUrl: "/SidakDeepSinghResumeJUL2025.pdf",
   contact: {
     email: "singh.sidak1deep@gmail.com",
@@ -76,7 +76,7 @@ const portfolioData = {
     "Python", "Go", "C/C++", "JavaScript", "TypeScript", "Java", "Pandas", "Scikit-learn",
     "PyTorch", "TensorFlow", "OpenCV", "Qt", "MongoDB", "MySQL", "Docker", "Git",
     "REST APIs", "MatPlotLib", "Transformers", "FastAPI", "PostgreSQL", "Kubernetes",
-    "MERN", "Model Training", "Neural Networks", "Data Preprocessing", "React"
+    "MERN", "Model Training", "Neural Networks", "Data Preprocessing", "React", "Agile Methodologies"
   ]
 };
 
