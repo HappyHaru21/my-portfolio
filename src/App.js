@@ -3,9 +3,9 @@ import { Mail, Linkedin, Github, ChevronsUp, Menu, X } from 'lucide-react';
 
 const portfolioData = {
   name: "Sidak Deep Singh",
-  title: " AI & ML Engineer | Full-Stack Developer",
+  title: "  AI & ML Engineer | Full-Stack Developer",
   summary: "Can't carry a tune, but happily carry 100 million CNN parameters. I build ML and software solutions using Python, PyTorch, TensorFlow, MERN, Docker, and RESTful APIs. I enjoy brainstorming ideas and turning them into reality. Code sings louder than any voice.",
-  resumeUrl: "/cx2 Sidak_Deep_Singh_resume.pdf",
+  resumeUrl: "/SidakDeepSinghResumeJUL2025.pdf",
   contact: {
     email: "singh.sidak1deep@gmail.com",
     linkedin: "https://www.linkedin.com/in/sidakdeep",
