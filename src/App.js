@@ -31,6 +31,12 @@ const portfolioData = {
   ],
   projects: [
     {
+      title: "Cherokee–English Translation with Gemma-3N",
+      description: "Fine-tuned Google's Gemma-3N large language model for high-quality Cherokee→English translation using a custom parallel corpus. Leveraged Unsloth's quantization (4-bit and FP16) and LoRA adapters for parameter-efficient fine-tuning on only 0.25% of model weights, reducing GPU memory usage by over 80%. Preprocessed 14,151 sentence pairs to create a specialized translator that outperforms generic tools for Cherokee inputs.",
+      technologies: ["Large Language Models", "Parameter-Efficient Fine-Tuning", "Transformers", "Natural Language Processing (NLP)", "PyTorch", "Quantization"],
+      link: "https://www.kaggle.com/code/huummm/cherokee-to-english-with-gemma3n"
+    },
+    {
       title: "Multimodal AI Chatbot",
       description: "Built and deployed a chatbot handling text, image, and audio using LLM and vision models. Implemented real-time streaming, robust file validation, and direct cloud inference via Groq Vision API.",
       technologies: ["FastAPI", "Python", "REST APIs", "React", "Data Preprocessing", "Git", "TensorFlow", "PyTorch", "JavaScript"],
@@ -76,7 +82,8 @@ const portfolioData = {
     "Python", "Go", "C/C++", "JavaScript", "TypeScript", "Java", "Pandas", "Scikit-learn",
     "PyTorch", "TensorFlow", "OpenCV", "Qt", "MongoDB", "MySQL", "Docker", "Git",
     "REST APIs", "MatPlotLib", "Transformers", "FastAPI", "PostgreSQL", "Kubernetes",
-    "MERN", "Model Training", "Neural Networks", "Data Preprocessing", "React", "Agile Methodologies"
+    "MERN", "Model Training", "Neural Networks", "Data Preprocessing", "React", "Agile Methodologies",
+    "Large Language Models", "Parameter-Efficient Fine-Tuning", "Natural Language Processing (NLP)", "Quantization"
   ]
 };
 
@@ -204,10 +211,47 @@ const ParticleBackground = () => {
 const Header = ({ name, resumeUrl }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navLinks = ["about", "experience", "skills", "projects", "contact"];
+
+  const smoothScrollTo = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+
+    const targetPosition = targetElement.offsetTop - 80; // Account for fixed header
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 800; // Animation duration in ms
+    let start = null;
+
+    const animation = (currentTime) => {
+      if (start === null) start = currentTime;
+      const timeElapsed = currentTime - start;
+      const progress = Math.min(timeElapsed / duration, 1);
+
+      // Easing function for smooth animation
+      const ease = progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+      window.scrollTo(0, startPosition + distance * ease);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    };
+
+    requestAnimationFrame(animation);
+  };
+
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    smoothScrollTo(link);
+    setIsOpen(false); // Close mobile menu
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full bg-slate-950/70 backdrop-blur-sm z-50 shadow-lg shadow-indigo-900/20">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#about" className="text-2xl font-bold font-orbitron bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:text-white transition-colors duration-300">
+        <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="text-2xl font-bold font-orbitron bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:text-white transition-colors duration-300">
           {name}
         </a>
         <nav className="hidden md:flex items-center space-x-8">
@@ -215,7 +259,7 @@ const Header = ({ name, resumeUrl }) => {
             Resume
           </a>
           {navLinks.map(link => (
-            <a key={link} href={`#${link}`} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium hover:drop-shadow-[0_0_3px_rgba(129,140,248,0.5)]">
+            <a key={link} href={`#${link}`} onClick={(e) => handleNavClick(e, link)} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium hover:drop-shadow-[0_0_3px_rgba(129,140,248,0.5)]">
               {link}
             </a>
           ))}
@@ -233,7 +277,7 @@ const Header = ({ name, resumeUrl }) => {
               Resume
             </a>
             {navLinks.map(link => (
-              <a key={link} href={`#${link}`} onClick={() => setIsOpen(false)} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium text-lg">
+              <a key={link} href={`#${link}`} onClick={(e) => handleNavClick(e, link)} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium text-lg">
                 {link}
               </a>
             ))}
@@ -334,7 +378,14 @@ const Projects = ({ projects }) => (
           </div>
           <div className="p-6 bg-slate-950/50 border-t border-slate-800">
              <a href={project.link} target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-indigo-400 transition-colors duration-300 flex items-center">
-              View on GitHub <Github size={18} className="ml-2" />
+              {project.link.includes('kaggle.com') ? 'View on Kaggle' : 'View on GitHub'}
+              {project.link.includes('kaggle.com') ? (
+                <svg className="ml-2" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.330-.248.495-.248h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.334"/>
+                </svg>
+              ) : (
+                <Github size={18} className="ml-2" />
+              )}
             </a>
           </div>
         </div>
@@ -460,6 +511,11 @@ const Footer = ({ contact }) => (
         <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 transform hover:scale-110" aria-label="GitHub">
           <Github size={30} />
         </a>
+        <a href="https://www.kaggle.com/haruki23" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 transform hover:scale-110" aria-label="Kaggle">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.330-.248.495-.248h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.334"/>
+          </svg>
+        </a>
       </div>
       <p className="text-gray-500">&copy; {new Date().getFullYear()} Sidak Deep Singh. All rights reserved.</p>
     </div>
@@ -472,7 +528,16 @@ const ScrollToTopButton = () => {
     if (window.pageYOffset > 300) setIsVisible(true);
     else setIsVisible(false);
   };
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => {
+    const scrollStep = -window.scrollY / (500 / 15); // Animation duration ~500ms
+    const scrollInterval = setInterval(() => {
+      if (window.scrollY !== 0) {
+        window.scrollBy(0, scrollStep);
+      } else {
+        clearInterval(scrollInterval);
+      }
+    }, 15);
+  };
   useEffect(() => {
     window.addEventListener('scroll', toggleVisibility);
     return () => window.removeEventListener('scroll', toggleVisibility);
@@ -480,7 +545,7 @@ const ScrollToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 bg-indigo-600/80 text-white p-3 rounded-md shadow-lg hover:bg-indigo-500 transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'} transform ${isVisible ? 'scale-100' : 'scale-50'} border border-indigo-500 shadow-indigo-500/30`}
+      className={`fixed bottom-8 right-8 bg-indigo-600/80 text-white p-3 rounded-md shadow-lg hover:bg-indigo-500 transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'} transform ${isVisible ? 'scale-100' : 'scale-50'} border border-indigo-500 shadow-indigo-500/30 z-50`}
       aria-label="Go to top"
     >
       <ChevronsUp size={24} />
