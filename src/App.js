@@ -3,9 +3,9 @@ import { Mail, Linkedin, Github, ChevronsUp, Menu, X } from 'lucide-react';
 
 const portfolioData = {
   name: "Sidak Deep Singh",
-  title: "  AI & ML Engineer | Full-Stack Developer",
-  summary: "While I can't carry a tune, I'm passionate about orchestrating complex ML models and full-stack applications. With a toolkit including Python, PyTorch, TensorFlow, and MERN, I enjoy transforming abstract concepts into tangible, elegant solutions.",
-  resumeUrl: "/SidakDeepSinghResumeJUL2025.pdf",
+  title: " ML Researcher",
+  summary: "Machine Learning researcher with hands-on experience in sparse neural networks, low-resource NLP, and transformer fine-tuning. Skilled in optimizing model efficiency with PyTorch, LoRA, and quantization, and experienced in experiment tracking with WandB, MLFlow.",
+  resumeUrl: "/SidakDeepSinghResumeDEC2025.pdf",
   contact: {
     email: "singh.sidak1deep@gmail.com",
     linkedin: "https://www.linkedin.com/in/sidakdeep",
@@ -17,8 +17,21 @@ const portfolioData = {
   },
   experience: [
     {
-      title: "Machine Learning Intern",
+      title: "Machine Learning Research Assistant",
+      company: "Experial AI",
+      companyUrl: "https://www.experial.ai/",
+      location: "Cologne, Germany (Remote)",
+      date: "Sep 2025 - Present",
+      description: [
+        "Collaborating with Experial AI's research pod on applied ML experiments and continual model evaluation.",
+        "Driving rapid prototyping cycles for workloads and summarizing experiment findings for stakeholders.",
+        "Supporting deployment-readiness reviews by translating research insights into actionable engineering next steps."
+      ]
+    },
+    {
+      title: "Machine Learning Research Intern",
       company: "VIT University",
+      companyUrl: "https://chennai.vit.ac.in/",
       location: "Chennai, India",
       date: "May 2025 - July 2025",
       description: [
@@ -335,29 +348,47 @@ const Section = ({ id, title, children }) => {
 
 const Experience = ({ experience }) => (
   <Section id="experience" title="Experience">
-    <div className="max-w-4xl mx-auto relative">
+    <div className="max-w-5xl mx-auto relative">
       <div className="absolute left-4 sm:left-1/2 top-0 h-full w-0.5 bg-slate-800"></div>
-      {experience.map((job, index) => (
-        <div key={index} className="relative mb-8 pl-8 sm:pl-0">
-          <div className="sm:flex items-center sm:justify-between">
-            <div className={`w-full sm:w-1/2 ${index % 2 === 0 ? 'sm:pr-8' : 'sm:pl-8 sm:text-right'}`}>
+      {experience.map((job, index) => {
+        const isRight = index % 2 === 0;
+        return (
+          <div
+            key={index}
+            className={`relative mb-12 pl-8 sm:pl-0 sm:flex ${isRight ? 'sm:justify-end' : 'sm:justify-start'}`}
+          >
+            <div
+              className={`w-full sm:w-[calc(50%-1.5rem)] ${isRight ? 'sm:ml-10 sm:mt-6' : 'sm:mr-10'}`}
+            >
               <div className="bg-slate-900/70 p-6 rounded-md shadow-xl border border-slate-800 hover:border-indigo-600 transition-colors duration-300 backdrop-blur-sm">
                 <div className="flex justify-between items-start mb-2 flex-col sm:flex-row">
-                  <div>
+                  <div className={`w-full sm:w-auto sm:text-left`}>
                     <h3 className="text-2xl font-bold text-indigo-400 font-orbitron">{job.title}</h3>
-                    <p className="text-lg font-semibold text-gray-300">{job.company} - {job.location}</p>
+                    <p className="text-lg font-semibold text-gray-300">
+                      {job.companyUrl ? (
+                        <a
+                          href={job.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-indigo-300 hover:text-indigo-200 underline-offset-4 hover:underline"
+                        >
+                          {job.company}
+                        </a>
+                      ) : job.company}
+                      {` - ${job.location}`}
+                    </p>
                   </div>
-                  <p className="text-md text-gray-400 whitespace-nowrap mt-2 sm:mt-0">{job.date}</p>
+                  <p className={`text-md text-gray-400 whitespace-nowrap mt-2 sm:mt-0 w-full sm:w-auto ${isRight ? 'sm:text-left sm:pl-4' : 'sm:text-right sm:pr-4'}`}>{job.date}</p>
                 </div>
                 <ul className="list-disc list-inside text-gray-400 space-y-2">
                   {job.description.map((point, i) => <li key={i}>{point}</li>)}
                 </ul>
               </div>
             </div>
+            <div className="absolute left-4 sm:left-1/2 top-6 -ml-2 h-4 w-4 rounded-full bg-indigo-500 shadow-[0_0_10px_2px_rgba(129,140,248,0.6)]"></div>
           </div>
-           <div className="absolute left-4 sm:left-1/2 top-4 -ml-2 h-4 w-4 rounded-full bg-indigo-500 shadow-[0_0_10px_2px_rgba(129,140,248,0.6)]"></div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </Section>
 );
