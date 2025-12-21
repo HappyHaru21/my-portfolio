@@ -3,7 +3,7 @@ import { Mail, Linkedin, Github, ChevronsUp, Menu, X } from 'lucide-react';
 
 const portfolioData = {
   name: "Sidak Deep Singh",
-  title: "mML Researcher",
+  title: "MML Researcher",
   summary: "Machine Learning researcher with hands-on experience in sparse neural networks, low-resource NLP, and transformer fine-tuning. Skilled in optimizing model efficiency with PyTorch, LoRA, and quantization, and experienced in experiment tracking with WandB, MLFlow.",
   resumeUrl: "/SidakDeepSinghResumeDEC2025.pdf",
   contact: {
