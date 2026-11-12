@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Mail, Linkedin, Github, ChevronsUp, Menu, X } from 'lucide-react';
+import { Mail, Linkedin, Github, ChevronsUp, Menu, X, BookOpen, ExternalLink } from 'lucide-react';
 
 const portfolioData = {
   name: "Sidak Deep Singh",
@@ -40,6 +40,19 @@ const portfolioData = {
         "Achieved 84% activation sparsity and 62% accuracy on CIFAR-10 with a novel adaptive sparse initialization."
       ],
       technologies: ["PyTorch", "Python", "Neural Networks", "Data Preprocessing", "MatPlotLib", "Model Training", "Transformers", "OpenCV", "TensorFlow"]
+    }
+  ],
+  publications: [
+    {
+      title: "Beyond static snapshots: gated recurrent units and graph attention networks for smarter multi-agent traffic control",
+      authors: "Mohita, S. D. Singh, D. Subitha, J. C. Kavitha",
+      journal: "Frontiers in Artificial Intelligence",
+      year: "2026",
+      volume: "Volume 9",
+      doi: "10.3389/frai.2026.1891950",
+      link: "https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1891950/full",
+      description: "Introduced Hybrid Coordinated Spatio-Temporal Graph Reinforcement Learning (HC-STGRL), integrating Gated Recurrent Units (GRU), Graph Attention Networks (GAT), and 3DQN to capture dynamic spatio-temporal traffic congestion and withstand sensor malfunctions in urban traffic networks. Validated with SUMO simulations across real-world road networks, achieving up to an 11.3% reduction in travel time and a 14.9% reduction in waiting time over CoLight, while maintaining robust operation even under 20% sensor failure.",
+      technologies: ["Reinforcement Learning (MARL)", "Graph Attention Networks (GAT)", "Gated Recurrent Units (GRU)", "3DQN", "PyTorch", "SUMO Simulation", "Neural Networks"]
     }
   ],
   projects: [
@@ -96,7 +109,8 @@ const portfolioData = {
     "PyTorch", "TensorFlow", "OpenCV", "Qt", "MongoDB", "MySQL", "Docker", "Git",
     "REST APIs", "MatPlotLib", "Transformers", "FastAPI", "PostgreSQL", "Kubernetes",
     "MERN", "Model Training", "Neural Networks", "Data Preprocessing", "React", "Agile Methodologies",
-    "Large Language Models", "Parameter-Efficient Fine-Tuning", "Natural Language Processing (NLP)", "Quantization"
+    "Large Language Models", "Parameter-Efficient Fine-Tuning", "Natural Language Processing (NLP)", "Quantization",
+    "Reinforcement Learning (MARL)", "Graph Attention Networks (GAT)", "Gated Recurrent Units (GRU)", "3DQN", "SUMO Simulation"
   ]
 };
 
@@ -223,7 +237,7 @@ const ParticleBackground = () => {
 
 const Header = ({ name, resumeUrl }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navLinks = ["about", "experience", "skills", "projects", "contact"];
+  const navLinks = ["about", "experience", "publications", "skills", "projects", "education", "contact"];
 
   const smoothScrollTo = (targetId) => {
     const targetElement = document.getElementById(targetId);
@@ -389,6 +403,94 @@ const Experience = ({ experience }) => (
           </div>
         );
       })}
+    </div>
+  </Section>
+);
+
+const Publications = ({ publications }) => (
+  <Section id="publications" title="Publications">
+    <div className="max-w-5xl mx-auto space-y-8">
+      {publications.map((pub, index) => (
+        <div
+          key={index}
+          className="bg-slate-900/70 rounded-md shadow-xl overflow-hidden border border-slate-800 hover:border-indigo-600 hover:shadow-indigo-600/20 transition-all duration-300 backdrop-blur-sm p-6 sm:p-8"
+        >
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-3">
+            <div className="flex items-center gap-2">
+              <BookOpen className="text-indigo-400 flex-shrink-0" size={24} />
+              <span className="text-xs uppercase tracking-wider font-semibold text-indigo-400 bg-indigo-950/60 border border-indigo-500/30 px-3 py-1 rounded-full">
+                {pub.journal} &bull; {pub.year}
+              </span>
+            </div>
+            {pub.doi && (
+              <span className="text-xs text-gray-400 font-mono">
+                DOI: {pub.doi}
+              </span>
+            )}
+          </div>
+
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-100 font-orbitron mb-3 hover:text-indigo-300 transition-colors">
+            <a href={pub.link} target="_blank" rel="noopener noreferrer">
+              {pub.title}
+            </a>
+          </h3>
+
+          <p className="text-sm sm:text-base text-gray-300 mb-4 font-medium">
+            {pub.authors.split(', ').map((author, i) => {
+              const isUser = author.includes('S. D. Singh') || author.includes('Sidak Deep Singh');
+              return (
+                <span key={i}>
+                  {i > 0 && ', '}
+                  {isUser ? (
+                    <span className="text-indigo-400 font-bold underline decoration-indigo-400/50 underline-offset-2">
+                      {author}
+                    </span>
+                  ) : (
+                    author
+                  )}
+                </span>
+              );
+            })}
+          </p>
+
+          <p className="text-gray-400 mb-6 leading-relaxed text-sm sm:text-base">
+            {pub.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {pub.technologies.map((tech, i) => (
+              <span
+                key={i}
+                className="bg-slate-800 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-4">
+            <a
+              href={pub.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-indigo-600/80 hover:bg-indigo-500 text-white font-medium py-2 px-5 rounded-md transition-all shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/40 border border-indigo-500 text-sm"
+            >
+              <span>Read Full Paper</span>
+              <ExternalLink size={16} />
+            </a>
+            {pub.doi && (
+              <a
+                href={`https://doi.org/${pub.doi}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-indigo-400 hover:text-indigo-300 hover:underline"
+              >
+                https://doi.org/{pub.doi}
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   </Section>
 );
@@ -593,6 +695,7 @@ export default function App() {
 
     const allTechnologies = [
         ...portfolioData.experience.flatMap(e => e.technologies || []),
+        ...(portfolioData.publications ? portfolioData.publications.flatMap(p => p.technologies || []) : []),
         ...portfolioData.projects.flatMap(p => p.technologies || [])
     ];
 
@@ -612,6 +715,16 @@ export default function App() {
             usage[tech].push(itemInfo);
         }
     };
+
+    if (portfolioData.publications) {
+        portfolioData.publications.forEach(pub => {
+            if (pub.technologies) {
+                pub.technologies.forEach(tech => {
+                    addToUsage(tech, { name: pub.title, type: 'publication', link: '#publications' });
+                });
+            }
+        });
+    }
 
     portfolioData.projects.forEach(project => {
         project.technologies.forEach(tech => {
@@ -654,6 +767,7 @@ export default function App() {
             contact={portfolioData.contact}
           />
           <Experience experience={portfolioData.experience} />
+          <Publications publications={portfolioData.publications} />
           <Skills skills={sortedSkills} skillUsage={skillUsage} setTooltip={setTooltip} />
           <Projects projects={portfolioData.projects} />
           <Education education={portfolioData.education} />
