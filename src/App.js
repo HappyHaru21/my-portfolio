@@ -821,37 +821,68 @@ const Masthead = ({ data }) => {
 
       {/* Links bar */}
       <div style={{
-        borderTop: '1px solid #D4C9B0', paddingTop: '1rem',
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-        gap: '0.75rem', marginBottom: '1rem'
+        borderTop: '1px solid #D4C9B0', paddingTop: '1.25rem',
+        display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1rem'
       }}>
-        {[
-          { label: '✉ Email', href: `mailto:${data.contact.email}` },
-          { label: '⌂ GitHub', href: data.contact.github, external: true },
-          { label: '∞ LinkedIn', href: data.contact.linkedin, external: true },
-          { label: '◈ Kaggle', href: data.contact.kaggle, external: true },
-        ].map(l => (
-          <a key={l.label} href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener noreferrer' : undefined}
-            className="font-mono"
-            style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7355', textDecoration: 'none', transition: 'color 0.2s' }}
-            onMouseEnter={(e) => e.target.style.color = '#8B2500'}
-            onMouseLeave={(e) => e.target.style.color = '#8B7355'}
+        {/* Row 1: Email and LinkedIn side to side */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1rem 1.5rem' }}>
+            <a href={`mailto:${data.contact.email}`} className="font-mono"
+              style={{ fontSize: '11px', color: '#8B2500', textDecoration: 'none', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              ✉ {data.contact.email}
+            </a>
+            <span style={{ color: '#D4C9B0' }}>•</span>
+            <a href={data.contact.linkedin} target="_blank" rel="noopener noreferrer" className="font-mono"
+              style={{ fontSize: '11px', color: '#8B2500', textDecoration: 'none', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              ∞ linkedin.com/in/sidakdeep
+            </a>
+          </div>
+          <a href={data.resumeUrl} download className="font-mono"
+            style={{
+              fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em',
+              background: '#2C2418', color: '#F0E8D8', padding: '0.4rem 0.85rem',
+              textDecoration: 'none', textAlign: 'center', fontWeight: 600,
+              borderRadius: '2px', transition: 'background 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#8B2500'}
+            onMouseLeave={(e) => e.currentTarget.style.background = '#2C2418'}
           >
-            {l.label}
+            ↓ Download CV
           </a>
-        ))}
-        <a href={data.resumeUrl} download className="font-mono"
-          style={{
-            fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em',
-            background: '#2C2418', color: '#F0E8D8', padding: '0.4rem 0.75rem',
-            textDecoration: 'none', textAlign: 'center', fontWeight: 600,
-            transition: 'background 0.2s'
-          }}
-          onMouseEnter={(e) => e.target.style.background = '#8B2500'}
-          onMouseLeave={(e) => e.target.style.background = '#2C2418'}
-        >
-          ↓ Download CV
-        </a>
+        </div>
+
+        {/* Row 2: GitHub, Kaggle, Discord in second row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem 1.25rem', paddingTop: '0.25rem' }}>
+          <a href={data.contact.github} target="_blank" rel="noopener noreferrer" className="font-mono"
+            style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7355', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#8B7355'}
+          >
+            ⌂ GitHub: HappyHaru21
+          </a>
+          <span style={{ color: '#D4C9B0' }}>•</span>
+          <a href={data.contact.kaggle} target="_blank" rel="noopener noreferrer" className="font-mono"
+            style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7355', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#8B7355'}
+          >
+            ◈ Kaggle: haruki23
+          </a>
+          <span style={{ color: '#D4C9B0' }}>•</span>
+          <a href={data.contact.discordLink} target="_blank" rel="noopener noreferrer" className="font-mono"
+            style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7355', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#8B7355'}
+          >
+            ⊹ Discord: {data.contact.discordUsername}
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -1160,46 +1191,168 @@ const EducationCard = ({ edu }) => (
    ═══════════════════ */
 const Footer = ({ contact }) => (
   <footer id="contact" style={{ borderTop: '2px solid #2C2418', paddingTop: '2.5rem', paddingBottom: '3.5rem' }}>
-    <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+    <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
       <h2 className="font-editorial" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2C2418', marginBottom: '0.5rem' }}>
         Get In Touch
       </h2>
       <p className="font-academic" style={{ fontSize: '0.9rem', color: '#5C4A2E', maxWidth: '28rem', margin: '0 auto' }}>
-        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
+        I'm always open to discussing new projects, research collaborations, or creative opportunities.
       </p>
     </div>
 
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem 2rem', marginBottom: '1.5rem' }}>
-      <a href={`mailto:${contact.email}`} className="font-mono"
-        style={{ fontSize: '12px', color: '#8B2500', textDecoration: 'none', fontWeight: 600 }}
-        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+    {/* Row 1: Email and LinkedIn handle side to side */}
+    <div style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '1rem 1.5rem',
+      marginBottom: '1rem'
+    }}>
+      <a
+        href={`mailto:${contact.email}`}
+        className="font-mono"
+        style={{
+          fontSize: '13px',
+          color: '#8B2500',
+          textDecoration: 'none',
+          fontWeight: 600,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '0.45rem 0.9rem',
+          borderRadius: '4px',
+          background: 'rgba(139, 37, 0, 0.05)',
+          border: '1px solid rgba(139, 37, 0, 0.18)',
+          transition: 'all 0.2s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#8B2500';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(139, 37, 0, 0.05)';
+          e.currentTarget.style.color = '#8B2500';
+        }}
       >
-        ✉ {contact.email}
+        <span>✉</span>
+        <span>{contact.email}</span>
       </a>
-      <a href={contact.discordLink} target="_blank" rel="noopener noreferrer" className="font-mono"
-        style={{ fontSize: '12px', color: '#8B2500', textDecoration: 'none', fontWeight: 600 }}
-        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
-        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+
+      <a
+        href={contact.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-mono"
+        style={{
+          fontSize: '13px',
+          color: '#8B2500',
+          textDecoration: 'none',
+          fontWeight: 600,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '0.45rem 0.9rem',
+          borderRadius: '4px',
+          background: 'rgba(139, 37, 0, 0.05)',
+          border: '1px solid rgba(139, 37, 0, 0.18)',
+          transition: 'all 0.2s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = '#8B2500';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(139, 37, 0, 0.05)';
+          e.currentTarget.style.color = '#8B2500';
+        }}
       >
-        ⊹ Discord: {contact.discordUsername}
+        <span>∞</span>
+        <span>linkedin.com/in/sidakdeep</span>
       </a>
     </div>
 
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-      {[
-        { label: 'GitHub', href: contact.github },
-        { label: 'LinkedIn', href: contact.linkedin },
-        { label: 'Kaggle', href: contact.kaggle },
-      ].map(l => (
-        <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="font-mono"
-          style={{ fontSize: '11px', color: '#8B7355', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em' }}
-          onMouseEnter={(e) => e.target.style.color = '#8B2500'}
-          onMouseLeave={(e) => e.target.style.color = '#8B7355'}
-        >
-          {l.label}
-        </a>
-      ))}
+    {/* Row 2: GitHub, Kaggle, Discord */}
+    <div style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: '0.75rem 1.25rem',
+      marginBottom: '2rem'
+    }}>
+      <a
+        href={contact.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-mono"
+        style={{
+          fontSize: '11px',
+          color: '#5C4A2E',
+          textDecoration: 'none',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
+          transition: 'color 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#5C4A2E'}
+      >
+        <span>⌂</span>
+        <span>GitHub: HappyHaru21</span>
+      </a>
+
+      <span style={{ color: '#D4C9B0' }}>•</span>
+
+      <a
+        href={contact.kaggle}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-mono"
+        style={{
+          fontSize: '11px',
+          color: '#5C4A2E',
+          textDecoration: 'none',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
+          transition: 'color 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#5C4A2E'}
+      >
+        <span>◈</span>
+        <span>Kaggle: haruki23</span>
+      </a>
+
+      <span style={{ color: '#D4C9B0' }}>•</span>
+
+      <a
+        href={contact.discordLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-mono"
+        style={{
+          fontSize: '11px',
+          color: '#5C4A2E',
+          textDecoration: 'none',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '5px',
+          transition: 'color 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#8B2500'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#5C4A2E'}
+      >
+        <span>⊹</span>
+        <span>Discord: {contact.discordUsername}</span>
+      </a>
     </div>
 
     <p className="font-mono" style={{ textAlign: 'center', fontSize: '10px', color: '#8B7355', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
