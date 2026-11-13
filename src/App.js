@@ -1,109 +1,204 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Mail, Linkedin, Github, ChevronsUp, Menu, X, BookOpen, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 const portfolioData = {
   name: "Sidak Deep Singh",
-  title: "MML Researcher",
-  summary: "Machine Learning researcher with hands-on experience in sparse neural networks, low-resource NLP, and transformer fine-tuning. Skilled in optimizing model efficiency with PyTorch, LoRA, and quantization, and experienced in experiment tracking with WandB, MLFlow.",
+  title: "Machine Learning Researcher",
+  summary: "Machine Learning researcher with hands-on experience in sparse neural networks, low-resource NLP, and transformer fine-tuning. Skilled in optimizing model efficiency with PyTorch, LoRA, and quantization, and experienced in experiment tracking with WandB and MLFlow. This monograph surveys a body of applied and theoretical work spanning multi-agent reinforcement learning for urban traffic coordination, indigenous language preservation through efficient LLM adaptation, and accessibility-focused computer vision systems.",
   resumeUrl: "/SidakDeepSinghResumeDEC2025.pdf",
   contact: {
     email: "singh.sidak1deep@gmail.com",
     linkedin: "https://www.linkedin.com/in/sidakdeep",
     github: "https://github.com/HappyHaru21",
+    kaggle: "https://www.kaggle.com/haruki23",
     discordUsername: "haroowkie",
     discordLink: "https://discordapp.com/users/547370864400924684",
     phone: "+91 7985553899",
     location: "Chennai, India"
   },
+  publications: [
+    {
+      id: "pub-traffic",
+      title: "Beyond static snapshots: gated recurrent units and graph attention networks for smarter multi-agent traffic control",
+      shortTitle: "Beyond Static Snapshots (HC-STGRL)",
+      authors: ["Mohita", "S. D. Singh", "D. Subitha", "J. C. Kavitha"],
+      journal: "Frontiers in Artificial Intelligence",
+      year: "2026",
+      volume: "Vol. 9",
+      doi: "10.3389/frai.2026.1891950",
+      link: "https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1891950/full",
+      description: "Introduced Hybrid Coordinated Spatio-Temporal Graph Reinforcement Learning (HC-STGRL), integrating Gated Recurrent Units (GRU), Graph Attention Networks (GAT), and 3DQN to capture dynamic spatio-temporal traffic congestion and withstand sensor malfunctions in urban traffic networks.",
+      benchmarks: [
+        { label: "Travel Time", value: "−11.3%", note: "vs. CoLight", color: "accent" },
+        { label: "Waiting Time", value: "−14.9%", note: "SUMO Grid Sim", color: "emerald" },
+        { label: "Sensor Faults", value: "Stable @ 20%", note: "Zero starvation collapse", color: "dark" }
+      ],
+      technologies: [
+        "Reinforcement Learning (MARL)",
+        "Graph Attention Networks (GAT)",
+        "Gated Recurrent Units (GRU)",
+        "3DQN",
+        "PyTorch",
+        "SUMO Simulation",
+        "Neural Networks",
+        "Python"
+      ]
+    }
+  ],
   experience: [
     {
+      id: "exp-experial",
       title: "Machine Learning Research Assistant",
       company: "Experial AI",
       companyUrl: "https://www.experial.ai/",
       location: "Cologne, Germany (Remote)",
-      date: "Sep 2025 - Present",
+      date: "Sep 2025 — Present",
+      isCurrent: true,
       description: [
         "Collaborating with Experial AI's research pod on applied ML experiments and continual model evaluation.",
         "Driving rapid prototyping cycles for workloads and summarizing experiment findings for stakeholders.",
         "Supporting deployment-readiness reviews by translating research insights into actionable engineering next steps."
+      ],
+      technologies: [
+        "Python",
+        "PyTorch",
+        "Transformers",
+        "Large Language Models",
+        "Model Training",
+        "Git",
+        "Data Preprocessing"
       ]
     },
     {
+      id: "exp-vit",
       title: "Machine Learning Research Intern",
       company: "VIT University",
       companyUrl: "https://chennai.vit.ac.in/",
       location: "Chennai, India",
-      date: "May 2025 - July 2025",
+      date: "May — July 2025",
+      isCurrent: false,
       description: [
         "Engineered and benchmarked sparse convolutional neural networks (CNN) with orthogonal initialization and adaptive per-channel activations in PyTorch.",
         "Optimized accuracy-sparsity trade-offs through extensive ablation studies and hyperparameter tuning on CIFAR-10/100.",
         "Achieved 84% activation sparsity and 62% accuracy on CIFAR-10 with a novel adaptive sparse initialization."
       ],
-      technologies: ["PyTorch", "Python", "Neural Networks", "Data Preprocessing", "MatPlotLib", "Model Training", "Transformers", "OpenCV", "TensorFlow"]
-    }
-  ],
-  publications: [
-    {
-      title: "Beyond static snapshots: gated recurrent units and graph attention networks for smarter multi-agent traffic control",
-      authors: "Mohita*, S. D. Singh*, D. Subitha, J. C. Kavitha",
-      contributionNote: "*Joint First Authors (Equal Contribution)",
-      journal: "Frontiers in Artificial Intelligence",
-      year: "2026",
-      volume: "Volume 9",
-      doi: "10.3389/frai.2026.1891950",
-      link: "https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2026.1891950/full",
-      description: "Introduced Hybrid Coordinated Spatio-Temporal Graph Reinforcement Learning (HC-STGRL), integrating Gated Recurrent Units (GRU), Graph Attention Networks (GAT), and 3DQN to capture dynamic spatio-temporal traffic congestion and withstand sensor malfunctions in urban traffic networks. Validated with SUMO simulations across real-world road networks, achieving up to an 11.3% reduction in travel time and a 14.9% reduction in waiting time over CoLight, while maintaining robust operation even under 20% sensor failure.",
-      technologies: ["Reinforcement Learning (MARL)", "Graph Attention Networks (GAT)", "Gated Recurrent Units (GRU)", "3DQN", "PyTorch", "SUMO Simulation", "Neural Networks"]
+      technologies: [
+        "PyTorch",
+        "Python",
+        "Neural Networks",
+        "Data Preprocessing",
+        "MatPlotLib",
+        "Model Training",
+        "Transformers",
+        "OpenCV",
+        "TensorFlow"
+      ]
     }
   ],
   projects: [
     {
+      id: "proj-cherokee",
       title: "Cherokee–English Translation with Gemma-3N",
-      description: "Fine-tuned Google's Gemma-3N large language model for high-quality Cherokee→English translation using a custom parallel corpus. Leveraged Unsloth's quantization (4-bit and FP16) and LoRA adapters for parameter-efficient fine-tuning on only 0.25% of model weights, reducing GPU memory usage by over 80%. Preprocessed 14,151 sentence pairs to create a specialized translator that outperforms generic tools for Cherokee inputs.",
-      technologies: ["Large Language Models", "Parameter-Efficient Fine-Tuning", "Transformers", "Natural Language Processing (NLP)", "PyTorch", "Quantization"],
+      category: "LLM / NLP",
+      description: "Fine-tuned Google's Gemma-3N large language model for high-quality Cherokee→English translation using a custom parallel corpus. Leveraged Unsloth's quantization (4-bit and FP16) and LoRA adapters on 0.25% of weights, cutting GPU memory usage by >80% across 14,151 sentence pairs.",
+      technologies: [
+        "Large Language Models",
+        "Parameter-Efficient Fine-Tuning",
+        "Transformers",
+        "Natural Language Processing (NLP)",
+        "PyTorch",
+        "Quantization",
+        "Python"
+      ],
       link: "https://www.kaggle.com/code/huummm/cherokee-to-english-with-gemma3n"
     },
     {
+      id: "proj-chatbot",
       title: "Multimodal AI Chatbot",
+      category: "Full-Stack AI",
       description: "Built and deployed a chatbot handling text, image, and audio using LLM and vision models. Implemented real-time streaming, robust file validation, and direct cloud inference via Groq Vision API.",
-      technologies: ["FastAPI", "Python", "REST APIs", "React", "Data Preprocessing", "Git", "TensorFlow", "PyTorch", "JavaScript"],
+      technologies: [
+        "FastAPI",
+        "Python",
+        "REST APIs",
+        "React",
+        "Data Preprocessing",
+        "Git",
+        "TensorFlow",
+        "PyTorch",
+        "JavaScript"
+      ],
       link: "https://github.com/HappyHaru21/multimodal-ai-chatbot"
     },
     {
+      id: "proj-mood",
       title: "Mood Analyser & Playlist Generator",
+      category: "MERN Stack",
       description: "Developed a full-stack app to log user moods, visualize trends, and create Spotify-based playlists. Engineered interactive mood tracking, user authentication, and live charting.",
-      technologies: ["React", "Node.js", "Express", "MongoDB", "MERN", "REST APIs", "Data Preprocessing", "Git", "JavaScript"],
+      technologies: [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "MERN",
+        "REST APIs",
+        "Data Preprocessing",
+        "Git",
+        "JavaScript"
+      ],
       link: "https://github.com/HappyHaru21/mood-analyser-playlist-generator"
     },
     {
+      id: "proj-vision",
       title: "BeMyVision-Environmental Captioning",
+      category: "Computer Vision",
       description: "Prepared a real-time image captioning system using BLIP and YOLOv3 models. Integrated text-to-speech conversion and OCR for reading text aloud.",
-      technologies: ["Python", "Streamlit", "OpenCV", "PyTorch", "Transformers", "Model Training", "Git", "TensorFlow"],
+      technologies: [
+        "Python",
+        "OpenCV",
+        "PyTorch",
+        "Transformers",
+        "Model Training",
+        "Git",
+        "TensorFlow"
+      ],
       link: "https://github.com/HappyHaru21/BeMyVision"
     },
     {
+      id: "proj-search",
       title: "Parallel Search using OpenMP",
+      category: "HPC / Systems",
       description: "Implemented a parallel search algorithm with OpenMP to optimize CSV file processing, decreasing search time by 30%. Developed a Qt-based GUI.",
-      technologies: ["C++", "Qt", "OpenMP", "Git", "C/C++"],
+      technologies: [
+        "C/C++",
+        "Qt",
+        "Git"
+      ],
       link: "https://github.com/HappyHaru21/parallel-search-openmp"
     }
   ],
   education: [
-      {
-        degree: "B.Tech. CSE (AI & Robotics)",
-        institution: "Vellore Institute of Technology",
-        location: "Chennai, India",
-        date: "2023 - 2027",
-        cgpa: "8.72",
-        transcriptUrl: "/AcademicTranscriptUnofficial.pdf"
-      },
-      {
-        degree: "AISSCE 12th",
-        institution: "G.D. Goenka Public School",
-        location: "Lucknow, India",
-        date: "2019 - 2023",
-        cgpa: "8.36"
-      }
+    {
+      id: "edu-vit",
+      degree: "B.Tech. CSE (AI & Robotics)",
+      institution: "Vellore Institute of Technology",
+      location: "Chennai, India",
+      date: "2023 — 2027",
+      cgpa: "8.72",
+      isCurrent: true,
+      transcriptUrl: "/AcademicTranscriptUnofficial.pdf",
+      courseworkTech: [
+        "Python", "C/C++", "Java", "Go", "TypeScript", "Pandas", "Scikit-learn",
+        "MySQL", "PostgreSQL", "Docker", "Kubernetes", "Agile Methodologies"
+      ]
+    },
+    {
+      id: "edu-goenka",
+      degree: "AISSCE 12th Grade",
+      institution: "G.D. Goenka Public School",
+      location: "Lucknow, India",
+      date: "2019 — 2023",
+      cgpa: "8.36",
+      isCurrent: false
+    }
   ],
   skills: [
     "Python", "Go", "C/C++", "JavaScript", "TypeScript", "Java", "Pandas", "Scikit-learn",
@@ -115,675 +210,1138 @@ const portfolioData = {
   ]
 };
 
-const useTypingEffect = (text, speed = 50) => {
-    const [displayedText, setDisplayedText] = useState('');
-    useEffect(() => {
-        setDisplayedText('');
-        let i = 0;
-        const typingInterval = setInterval(() => {
-            if (i < text.length) {
-                setDisplayedText(prev => prev + text.charAt(i));
-                i++;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, speed);
-        return () => clearInterval(typingInterval);
-    }, [text, speed]);
-    return displayedText;
+/* ═══════════════════════════════════════════
+   CUSTOM CSS INJECTOR (fonts + paper styles)
+   ═══════════════════════════════════════════ */
+const StyleInjector = () => {
+  useEffect(() => {
+    const fontId = 'manuscript-fonts';
+    if (!document.getElementById(fontId)) {
+      const link = document.createElement('link');
+      link.id = fontId;
+      link.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap";
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+
+    const styleId = 'manuscript-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        html { scroll-behavior: smooth; }
+        body {
+          background-color: #FDFBF7;
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4cfc4' fill-opacity='0.12'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+          color: #1A1817;
+          margin: 0;
+          font-family: 'Inter', -apple-system, sans-serif;
+          -webkit-font-smoothing: antialiased;
+        }
+        ::selection { background: #E8D8B8; color: #3D2B00; }
+        .font-editorial { font-family: 'Playfair Display', Georgia, serif; }
+        .font-garamond { font-family: 'Cormorant Garamond', Garamond, serif; }
+        .font-academic { font-family: 'Newsreader', Georgia, serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .drop-cap::first-letter {
+          float: left;
+          font-family: 'Playfair Display', serif;
+          font-size: 4.2em;
+          line-height: 0.75;
+          margin-right: 0.12em;
+          margin-top: 0.08em;
+          color: #8B2500;
+          font-weight: 700;
+        }
+
+        .paper-card {
+          background: #FFFFFF;
+          border: 1px solid #E8E0D0;
+          box-shadow: 0 1px 3px rgba(139,115,85,0.06), 0 4px 12px rgba(139,115,85,0.04);
+          transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+        }
+        .paper-card:hover {
+          box-shadow: 0 4px 20px rgba(139,115,85,0.12), 0 12px 40px rgba(139,115,85,0.06);
+          transform: translateY(-2px);
+          border-color: #C4B9A0;
+        }
+
+        .paper-tag {
+          background: #F7F3EC;
+          border: 1px solid #E0D8C8;
+          color: #5C553F;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.65rem;
+          padding: 0.25rem 0.65rem;
+          border-radius: 9999px;
+          transition: all 0.2s;
+          display: inline-block;
+          user-select: none;
+        }
+        .paper-tag:hover, .paper-tag.active {
+          background: #8B2500;
+          color: white;
+          border-color: #8B2500;
+        }
+
+        .paper-tag-interactive {
+          cursor: pointer;
+          position: relative;
+        }
+        .paper-tag-interactive:hover {
+          box-shadow: 0 2px 8px rgba(139, 37, 0, 0.25);
+          transform: translateY(-1px);
+        }
+
+        .ornamental-rule {
+          border: none;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #C4B9A0, #8B7355, #C4B9A0, transparent);
+          margin: 2.5rem 0;
+        }
+
+        .section-number {
+          font-family: 'Playfair Display', serif;
+          font-size: 5rem;
+          font-weight: 900;
+          line-height: 1;
+          color: transparent;
+          -webkit-text-stroke: 1.5px #D4C9B0;
+          opacity: 0.4;
+          position: absolute;
+          top: -1rem;
+          right: 0;
+          user-select: none;
+          pointer-events: none;
+        }
+
+        .margin-note {
+          font-family: 'Newsreader', serif;
+          font-style: italic;
+          font-size: 0.75rem;
+          color: #8B7355;
+          border-left: 2px solid #D4C9B0;
+          padding-left: 0.75rem;
+          margin-top: 0.5rem;
+        }
+
+        /* Navigation styling */
+        .sticky-nav-item {
+          color: #5C4A2E;
+          text-decoration: none;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          padding: 0.4rem 0.65rem;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .sticky-nav-item:hover {
+          color: #8B2500;
+          background: rgba(139, 37, 0, 0.06);
+        }
+
+        @keyframes tooltipFadeIn {
+          from { opacity: 0; transform: translate(-50%, 6px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        .animate-tooltip {
+          animation: tooltipFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @media (max-width: 768px) {
+          .section-number { font-size: 3rem; top: -0.5rem; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+  return null;
 };
 
-const useFadeIn = (options) => {
+/* ═══════════════════
+   FADE-IN OBSERVER
+   ═══════════════════ */
+const useFadeIn = (threshold = 0.1) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const element = ref.current;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.unobserve(entry.target);
-      }
-    }, options);
-    if (element) observer.observe(element);
-
-    return () => {
-      if (element) {
-        try {
-          observer.unobserve(element);
-        } catch (e) {
-          // Intentionally empty
-        }
-      }
-    };
-  }, [ref, options]);
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setIsVisible(true); obs.unobserve(entry.target); }
+    }, { threshold });
+    obs.observe(el);
+    return () => { try { obs.unobserve(el); } catch(e) {} };
+  }, [threshold]);
   return [ref, isVisible];
 };
 
-const DiscordIcon = ({ size = 24, className = "" }) => (
-    <svg
-        className={className}
-        role="img"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
+/* ═══════════════
+   SCROLL TO TOP
+   ═══════════════ */
+const ScrollToTop = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const toggle = () => setShow(window.pageYOffset > 400);
+    window.addEventListener('scroll', toggle);
+    return () => window.removeEventListener('scroll', toggle);
+  }, []);
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="Scroll to top"
+      style={{
+        position: 'fixed', bottom: '2rem', right: '2rem',
+        background: '#2C2418', color: '#F0E8D8',
+        border: 'none', borderRadius: '4px',
+        width: '44px', height: '44px',
+        cursor: 'pointer', zIndex: 40,
+        opacity: show ? 1 : 0,
+        transform: show ? 'scale(1)' : 'scale(0.5)',
+        transition: 'all 0.3s ease',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: '1.2rem', boxShadow: '0 2px 12px rgba(44,36,24,0.3)'
+      }}
     >
-        <title>Discord</title>
-        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4464.8245-.6662 1.2838-2.2533.0187-4.4533.0187-6.7067 0-.2197-.4593-.4552-.9085-.6662-1.2838a.0741.0741 0 00-.0785-.0371 19.7913 19.7913 0 00-4.8851 1.5152.069.069 0 00-.0321.0262c-1.8986 3.1452-2.8049 6.401-2.8049 9.6402 0 2.1704.5298 4.2282 1.4815 6.0337a.0741.0741 0 00.0428.043c1.353.6348 2.8243 1.1225 4.3809 1.4714a.0741.0741 0 00.088-.0615c.094-.3192.1818-.6435.2615-.9737a.0741.0741 0 00-.0428-.0879c-.5881-.2544-1.1598-.5642-1.7015-.9192a.0741.0741 0 01-.0214-.0879c.6391-.5772 1.214-1.2224 1.7112-1.9222a.0741.0741 0 01.0903-.0214c.6986.3714 1.4284.6883 2.1882.9454a.0741.0741 0 00.0862-.043c.2415-.4167.4552-.8438.6478-1.2838a.0741.0741 0 00-.0118-.0879c-.481-.2841-.9518-.6002-1.4015-.9473a.0741.0741 0 01-.0118-.1066c.0118-.0093.0236-.0187.0353-.028.1058-.084.211-.1775.317-.2614a.0741.0741 0 01.094-.0117c3.2652 1.6348 6.5947 1.6348 9.86 0a.0741.0741 0 01.094.0117c.1058.084.211.1775.317.2614a.0741.0741 0 01.0353.028.0741.0741 0 01-.0118.1066c-.4497.3471-.9205.6632-1.4015.9473a.0741.0741 0 00-.0118.0879c.1926.44.4062.8671.6478 1.2838a.0741.0741 0 00.0862-.043c.76.257 1.4897.574 2.1882.9454a.0741.0741 0 01.0903.0214c.4971.6998 1.072 1.345 1.7112 1.9222a.0741.0741 0 01-.0214.0879c-.5417.355-1.1134.6648-1.7015.9192a.0741.0741 0 00-.0428.0879c.0798.3302.1676.6545.2615.9737a.0741.0741 0 00.088.0615c1.5566-.3489 3.0279-.8366 4.3809-1.4714a.0741.0741 0 00.0428-.043c.9518-1.8055 1.4815-3.8633 1.4815-6.0337 0-3.2392-.9062-6.495-2.8049-9.6402a.069.069 0 00-.0321-.0262z"/>
-    </svg>
-);
-
-const ParticleBackground = () => {
-    const canvasRef = useRef(null);
-    const draw = useCallback((ctx, particles) => {
-        if (!ctx) return;
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.fillStyle = 'rgba(167, 139, 250, 0.4)';
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fill();
-        });
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgba(167, 139, 250, 0.08)';
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-                if (dist < 130) {
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                }
-            }
-        }
-        ctx.stroke();
-    }, []);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        let animationFrameId;
-        const resizeCanvas = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = document.body.scrollHeight;
-        };
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        const particles = Array.from({ length: 70 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 1.5 + 0.5,
-            vx: Math.random() * 0.4 - 0.2,
-            vy: Math.random() * 0.4 - 0.2,
-        }));
-        const animate = () => {
-            particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-            });
-            draw(ctx, particles);
-            animationFrameId = requestAnimationFrame(animate);
-        };
-        animate();
-        return () => {
-            cancelAnimationFrame(animationFrameId);
-            window.removeEventListener('resize', resizeCanvas);
-        };
-    }, [draw]);
-    return <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: -1, background: '#010409' }} />;
+      ↑
+    </button>
+  );
 };
 
+/* ═══════════════
+   COLOPHON BAR
+   ═══════════════ */
+const Colophon = ({ contact }) => (
+  <div style={{
+    background: '#2C2418', color: '#D4C9B0',
+    fontSize: '10px', fontFamily: "'JetBrains Mono', monospace",
+    letterSpacing: '0.12em', textTransform: 'uppercase',
+    padding: '0.5rem 1.5rem', textAlign: 'center'
+  }}>
+    Portfolio Monograph &bull; Sidak Deep Singh &bull; Volume 2026 &bull; {contact.location} &bull;{' '}
+    <a href={`mailto:${contact.email}`} style={{ color: '#D4C9B0', textDecoration: 'underline' }}>
+      {contact.email}
+    </a>
+  </div>
+);
 
-const Header = ({ name, resumeUrl }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const navLinks = ["about", "experience", "publications", "skills", "projects", "education", "contact"];
+/* ══════════════════════════════════════════════════════════
+   STICKY MANUSCRIPT NAVIGATION BAR (Quick Travel Buttons)
+   ══════════════════════════════════════════════════════════ */
+const StickyNav = ({ name, resumeUrl }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const smoothScrollTo = (targetId) => {
-    const targetElement = document.getElementById(targetId);
-    if (!targetElement) return;
-
-    const targetPosition = targetElement.offsetTop - 80; // Account for fixed header
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = 800; // Animation duration in ms
-    let start = null;
-
-    const animation = (currentTime) => {
-      if (start === null) start = currentTime;
-      const timeElapsed = currentTime - start;
-      const progress = Math.min(timeElapsed / duration, 1);
-
-      // Easing function for smooth animation
-      const ease = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-      window.scrollTo(0, startPosition + distance * ease);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
-      }
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.pageYOffset > 40);
     };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    requestAnimationFrame(animation);
-  };
+  const navItems = [
+    { label: "about", href: "#about" },
+    { label: "experience", href: "#experience" },
+    { label: "publications", href: "#publications" },
+    { label: "skills", href: "#skills" },
+    { label: "projects", href: "#projects" },
+    { label: "education", href: "#education" },
+    { label: "contact", href: "#contact" }
+  ];
 
-  const handleNavClick = (e, link) => {
+  const handleScrollTo = (e, targetId) => {
     e.preventDefault();
-    smoothScrollTo(link);
-    setIsOpen(false); // Close mobile menu
+    setMobileMenuOpen(false);
+    const targetElement = document.querySelector(targetId);
+    if (!targetElement) return;
+    const headerOffset = 64;
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-slate-950/70 backdrop-blur-sm z-50 shadow-lg shadow-indigo-900/20">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="text-2xl font-bold font-orbitron bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:text-white transition-colors duration-300">
-          {name}
+    <header style={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+      background: scrolled ? 'rgba(253, 251, 247, 0.94)' : 'rgba(253, 251, 247, 0.88)',
+      backdropFilter: 'blur(10px)',
+      WebkitBackdropFilter: 'blur(10px)',
+      borderBottom: '1px solid #E0D8C8',
+      transition: 'box-shadow 0.25s ease, background 0.25s ease',
+      boxShadow: scrolled ? '0 4px 16px rgba(139, 115, 85, 0.08)' : '0 1px 3px rgba(139, 115, 85, 0.04)'
+    }}>
+      <div style={{
+        maxWidth: '56rem',
+        margin: '0 auto',
+        padding: '0.6rem 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1rem'
+      }}>
+        {/* Brand / Logo */}
+        <a
+          href="#about"
+          onClick={(e) => handleScrollTo(e, '#about')}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: '6px' }}
+        >
+          <span className="font-editorial" style={{
+            fontSize: '1.2rem',
+            fontWeight: 900,
+            color: '#1A1410',
+            letterSpacing: '-0.02em',
+            lineHeight: 1
+          }}>
+            {name}
+          </span>
+          <span className="font-mono" style={{ fontSize: '9px', color: '#8B7355', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+            / Monograph
+          </span>
         </a>
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href={resumeUrl} download="Sidak_Deep_Singh_resume.pdf" className="text-indigo-400 border border-indigo-400 px-4 py-1.5 rounded-md text-sm font-medium hover:bg-indigo-500 hover:text-slate-950 transition-colors duration-300">
-            Resume
-          </a>
-          {navLinks.map(link => (
-            <a key={link} href={`#${link}`} onClick={(e) => handleNavClick(e, link)} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium hover:drop-shadow-[0_0_3px_rgba(129,140,248,0.5)]">
-              {link}
+
+        {/* Desktop Quick Travel Links */}
+        <nav style={{ display: 'none' }} className="md:flex md:items-center md:gap-1">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleScrollTo(e, item.href)}
+              className="sticky-nav-item"
+            >
+              {item.label}
             </a>
           ))}
+
+          {/* Quick Travel Resume Button */}
+          <a
+            href={resumeUrl}
+            download="Sidak_Deep_Singh_resume.pdf"
+            className="font-mono"
+            style={{
+              fontSize: '11px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              background: '#2C2418',
+              color: '#F0E8D8',
+              padding: '0.35rem 0.85rem',
+              borderRadius: '3px',
+              textDecoration: 'none',
+              fontWeight: 700,
+              marginLeft: '0.5rem',
+              transition: 'all 0.2s ease',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              boxShadow: '0 1px 3px rgba(44, 36, 24, 0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#8B2500';
+              e.currentTarget.style.color = '#FFFFFF';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#2C2418';
+              e.currentTarget.style.color = '#F0E8D8';
+            }}
+          >
+            <span>Resume</span>
+            <span>↓</span>
+          </a>
         </nav>
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-indigo-400">
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+
+        {/* Mobile Hamburger Button */}
+        <div className="md:hidden flex items-center gap-2">
+          <a
+            href={resumeUrl}
+            download="Sidak_Deep_Singh_resume.pdf"
+            className="font-mono"
+            style={{
+              fontSize: '10px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              background: '#2C2418',
+              color: '#F0E8D8',
+              padding: '0.3rem 0.6rem',
+              borderRadius: '3px',
+              textDecoration: 'none',
+              fontWeight: 700
+            }}
+          >
+            Resume ↓
+          </a>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation"
+            style={{
+              background: 'none',
+              border: '1px solid #D4C9B0',
+              borderRadius: '4px',
+              padding: '0.35rem 0.55rem',
+              cursor: 'pointer',
+              color: '#2C2418',
+              fontSize: '14px',
+              fontFamily: "'JetBrains Mono', monospace"
+            }}
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
           </button>
         </div>
       </div>
-      {isOpen && (
-        <div className="md:hidden bg-slate-900">
-          <nav className="flex flex-col items-center py-4 space-y-4">
-            <a href={resumeUrl} download="Sidak_Deep_Singh_resume.pdf" className="text-indigo-400 border border-indigo-400 px-6 py-2 rounded-md text-base font-medium hover:bg-indigo-500 hover:text-slate-950 transition-colors duration-300 w-3/4 text-center">
-              Resume
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div style={{
+          background: '#FAF6EE',
+          borderTop: '1px solid #E0D8C8',
+          borderBottom: '2px solid #2C2418',
+          padding: '1rem 1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem'
+        }}>
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleScrollTo(e, item.href)}
+              className="sticky-nav-item"
+              style={{ padding: '0.6rem 0.5rem', borderBottom: '1px solid #EFEAE0' }}
+            >
+              {item.label}
             </a>
-            {navLinks.map(link => (
-              <a key={link} href={`#${link}`} onClick={(e) => handleNavClick(e, link)} className="capitalize text-gray-300 hover:text-indigo-400 transition-colors duration-300 font-medium text-lg">
-                {link}
-              </a>
-            ))}
-          </nav>
+          ))}
         </div>
       )}
     </header>
   );
 };
 
-const Hero = ({ name, title, summary, contact }) => {
-    const animatedTitle = useTypingEffect(title, 50);
-    return (
-        <section id="about" className="min-h-screen flex items-center text-white pt-24 md:pt-0 relative">
-            <div className="container mx-auto px-6 text-center z-10">
-                <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-extrabold font-orbitron mb-4 leading-tight">
-                        Hi, I'm <span className="text-indigo-400 drop-shadow-[0_0_8px_rgba(129,140,248,0.7)]">{name}</span>
-                    </h1>
-                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-300 mb-6 font-orbitron h-16 md:h-auto">
-                        {animatedTitle}
-                        <span className="opacity-70 animate-ping">_</span>
-                    </h2>
-                    <p className="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                        {summary}
-                    </p>
-                    <div className="flex justify-center space-x-4">
-                        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="bg-indigo-600/80 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-md transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 border border-indigo-500">
-                            View LinkedIn
-                        </a>
-                        <a href={contact.github} target="_blank" rel="noopener noreferrer" className="bg-gray-800/80 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-md transition-all transform hover:scale-105 shadow-lg shadow-gray-700/20 hover:shadow-gray-700/40 border border-gray-700">
-                            See My Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+/* ══════════════════════════════════════════════════════
+   SCHOLARLY FOOTNOTE TOOLTIP (Skill Usage Cross-Reference)
+   ══════════════════════════════════════════════════════ */
+const SkillTooltip = ({ visible, skill, content, x, y, onClose }) => {
+  if (!visible || !content || content.length === 0) return null;
+
+  // Keep tooltip on-screen
+  const safeLeft = Math.max(130, Math.min(x, window.innerWidth - 150));
+  const safeTop = Math.max(70, Math.min(y + 16, window.innerHeight - 200));
+
+  return (
+    <div
+      className="animate-tooltip"
+      style={{
+        position: 'fixed',
+        top: `${safeTop}px`,
+        left: `${safeLeft}px`,
+        transform: 'translateX(-50%)',
+        zIndex: 9999,
+        pointerEvents: 'auto'
+      }}
+    >
+      <div style={{
+        background: '#2C2418',
+        color: '#F0E8D8',
+        borderRadius: '4px',
+        padding: '0.75rem 1rem',
+        border: '1px solid #8B7355',
+        boxShadow: '0 10px 30px rgba(44, 36, 24, 0.35), 0 2px 8px rgba(44, 36, 24, 0.2)',
+        maxWidth: '320px',
+        minWidth: '240px'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: '1px solid rgba(212, 201, 176, 0.25)',
+          paddingBottom: '0.4rem',
+          marginBottom: '0.5rem'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+            <span className="font-mono" style={{ fontSize: '11px', color: '#FFFFFF', fontWeight: 700 }}>
+              {skill}
+            </span>
+            <span className="font-mono" style={{ fontSize: '9px', color: '#C4B9A0', textTransform: 'uppercase' }}>
+              Corpus Index
+            </span>
+          </div>
+          <span className="font-mono" style={{
+            fontSize: '9px',
+            background: '#8B2500',
+            color: '#FFFFFF',
+            padding: '0.1rem 0.4rem',
+            borderRadius: '2px',
+            fontWeight: 700
+          }}>
+            {content.length} {content.length === 1 ? 'ref' : 'refs'}
+          </span>
+        </div>
+
+        <p className="font-academic" style={{ fontSize: '11px', color: '#D4C9B0', fontStyle: 'italic', margin: '0 0 0.5rem' }}>
+          Referenced in the following works:
+        </p>
+
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+          {content.map((item, index) => (
+            <li key={index}>
+              <a
+                href={item.link}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose?.();
+                  const target = document.querySelector(item.link);
+                  if (target) {
+                    const headerOffset = 70;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                  }
+                }}
+                style={{
+                  color: '#F0E8D8',
+                  textDecoration: 'none',
+                  fontSize: '11px',
+                  fontFamily: "'Newsreader', Georgia, serif",
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  justifyContent: 'space-between',
+                  gap: '8px',
+                  lineHeight: '1.3',
+                  padding: '2px 0'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#F59E0B';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#F0E8D8';
+                }}
+              >
+                <span style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                  <span style={{ color: '#8B7355', fontSize: '10px' }}>§</span>
+                  <span style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                    {item.name}
+                  </span>
+                </span>
+                <span className="font-mono" style={{
+                  fontSize: '8px',
+                  color: '#C4B9A0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  flexShrink: 0,
+                  background: 'rgba(255,255,255,0.06)',
+                  padding: '1px 4px',
+                  borderRadius: '2px'
+                }}>
+                  {item.type}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
 
-const Section = ({ id, title, children }) => {
-  const [ref, isVisible] = useFadeIn({ threshold: 0.1 });
+/* ═══════════════
+   MASTHEAD (#about)
+   ═══════════════ */
+const Masthead = ({ data }) => {
   return (
-    <section id={id} ref={ref} className={`py-20 px-4 sm:px-6 lg:px-8 bg-transparent text-white transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold font-orbitron text-center mb-12 text-gray-200">
-          {title}
-          <div className="w-24 h-1 bg-indigo-500 mx-auto mt-3 rounded-full shadow-[0_0_12px_1px_rgba(129,140,248,0.5)]"></div>
-        </h2>
-        {children}
+    <header id="about" style={{ maxWidth: '52rem', margin: '0 auto', padding: '2.5rem 1.5rem 0' }}>
+      {/* Journal nameplate */}
+      <div style={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
+        borderBottom: '2px solid #2C2418', paddingBottom: '1rem', marginBottom: '1rem',
+        flexWrap: 'wrap', gap: '1rem'
+      }}>
+        <div className="font-editorial" style={{ fontSize: '2rem', fontWeight: 900, color: '#2C2418', lineHeight: 1, textTransform: 'uppercase', letterSpacing: '-0.02em' }}>
+          The Singh<br/>Monograph
+        </div>
+        <div className="font-mono" style={{ textAlign: 'right', fontSize: '10px', color: '#8B7355', textTransform: 'uppercase', letterSpacing: '0.1em', lineHeight: 1.6 }}>
+          <div>Volume I &bull; Issue 1</div>
+          <div>Est. 2023</div>
+          <div style={{ color: '#8B2500', fontWeight: 700 }}>{data.contact.location}</div>
+        </div>
       </div>
+
+      {/* Thin ornamental */}
+      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, #C4B9A0, transparent)', marginBottom: '2rem' }} />
+
+      {/* Title block */}
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <p className="font-mono" style={{ fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#8B7355', marginBottom: '1rem' }}>
+          Original Research Portfolio &bull; Accepted for Review
+        </p>
+        <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 4.5rem)', fontWeight: 900, color: '#1A1410', lineHeight: 0.92, letterSpacing: '-0.02em', margin: '0 0 0.75rem' }}>
+          Sidak Deep<br/>Singh
+        </h1>
+        <div style={{ width: '1.5rem', height: '2px', background: '#8B2500', margin: '0 auto 1rem' }} />
+        <p className="font-garamond" style={{ fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', fontStyle: 'italic', color: '#5C4A2E', maxWidth: '32rem', margin: '0 auto', lineHeight: 1.5 }}>
+          Machine Learning Researcher specializing in Multi-Agent Systems, Sparse Neural Networks &amp; Low-Resource NLP
+        </p>
+      </div>
+
+      {/* Abstract */}
+      <div className="paper-card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+        <p className="font-mono" style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8B2500', fontWeight: 700, marginBottom: '0.75rem' }}>
+          Abstract
+        </p>
+        <p className="font-academic drop-cap" style={{ fontSize: '1rem', color: '#383020', lineHeight: 1.85 }}>
+          {data.summary}
+        </p>
+      </div>
+
+      {/* Links bar */}
+      <div style={{
+        borderTop: '1px solid #D4C9B0', paddingTop: '1rem',
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+        gap: '0.75rem', marginBottom: '1rem'
+      }}>
+        {[
+          { label: '✉ Email', href: `mailto:${data.contact.email}` },
+          { label: '⌂ GitHub', href: data.contact.github, external: true },
+          { label: '∞ LinkedIn', href: data.contact.linkedin, external: true },
+          { label: '◈ Kaggle', href: data.contact.kaggle, external: true },
+        ].map(l => (
+          <a key={l.label} href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener noreferrer' : undefined}
+            className="font-mono"
+            style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B7355', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.target.style.color = '#8B2500'}
+            onMouseLeave={(e) => e.target.style.color = '#8B7355'}
+          >
+            {l.label}
+          </a>
+        ))}
+        <a href={data.resumeUrl} download className="font-mono"
+          style={{
+            fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em',
+            background: '#2C2418', color: '#F0E8D8', padding: '0.4rem 0.75rem',
+            textDecoration: 'none', textAlign: 'center', fontWeight: 600,
+            transition: 'background 0.2s'
+          }}
+          onMouseEnter={(e) => e.target.style.background = '#8B2500'}
+          onMouseLeave={(e) => e.target.style.background = '#2C2418'}
+        >
+          ↓ Download CV
+        </a>
+      </div>
+    </header>
+  );
+};
+
+/* ═════════════════════
+   SECTION WRAPPER
+   ═════════════════════ */
+const MonoSection = ({ id, number, title, subtitle, children }) => {
+  const [ref, isVisible] = useFadeIn(0.05);
+  return (
+    <section id={id} ref={ref} style={{
+      position: 'relative', padding: '2rem 0',
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease'
+    }}>
+      <span className="section-number">{number}</span>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <h2 className="font-editorial" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2C2418', letterSpacing: '-0.01em', margin: 0 }}>
+          {title}
+        </h2>
+        {subtitle && (
+          <p className="font-mono" style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8B7355', marginTop: '0.25rem' }}>
+            {subtitle}
+          </p>
+        )}
+      </div>
+      {children}
     </section>
   );
 };
 
-const Experience = ({ experience }) => (
-  <Section id="experience" title="Experience">
-    <div className="max-w-5xl mx-auto relative">
-      <div className="absolute left-4 sm:left-1/2 top-0 h-full w-0.5 bg-slate-800"></div>
-      {experience.map((job, index) => {
-        const isRight = index % 2 === 0;
-        return (
-          <div
-            key={index}
-            className={`relative mb-12 pl-8 sm:pl-0 sm:flex ${isRight ? 'sm:justify-end' : 'sm:justify-start'}`}
-          >
-            <div
-              className={`w-full sm:w-[calc(50%-1.5rem)] ${isRight ? 'sm:ml-10 sm:mt-6' : 'sm:mr-10'}`}
-            >
-              <div className="bg-slate-900/70 p-6 rounded-md shadow-xl border border-slate-800 hover:border-indigo-600 transition-colors duration-300 backdrop-blur-sm">
-                <div className="flex justify-between items-start mb-2 flex-col sm:flex-row">
-                  <div className={`w-full sm:w-auto sm:text-left`}>
-                    <h3 className="text-2xl font-bold text-indigo-400 font-orbitron">{job.title}</h3>
-                    <p className="text-lg font-semibold text-gray-300">
-                      {job.companyUrl ? (
-                        <a
-                          href={job.companyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-indigo-300 hover:text-indigo-200 underline-offset-4 hover:underline"
-                        >
-                          {job.company}
-                        </a>
-                      ) : job.company}
-                      {` - ${job.location}`}
-                    </p>
-                  </div>
-                  <p className={`text-md text-gray-400 whitespace-nowrap mt-2 sm:mt-0 w-full sm:w-auto ${isRight ? 'sm:text-left sm:pl-4' : 'sm:text-right sm:pr-4'}`}>{job.date}</p>
-                </div>
-                <ul className="list-disc list-inside text-gray-400 space-y-2">
-                  {job.description.map((point, i) => <li key={i}>{point}</li>)}
-                </ul>
-              </div>
-            </div>
-            <div className="absolute left-4 sm:left-1/2 top-6 -ml-2 h-4 w-4 rounded-full bg-indigo-500 shadow-[0_0_10px_2px_rgba(129,140,248,0.6)]"></div>
-          </div>
-        );
-      })}
+/* ═══════════════════
+   PUBLICATION
+   ═══════════════════ */
+const Publication = ({ pub }) => (
+  <article className="paper-card" style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
+    {/* Meta ribbon */}
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+      <span className="font-mono" style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', background: '#8B2500', color: 'white', padding: '0.25rem 0.75rem', fontWeight: 700 }}>
+        Original Research
+      </span>
+      <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>DOI: {pub.doi}</span>
+      <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>{pub.journal} &bull; {pub.volume} ({pub.year})</span>
     </div>
-  </Section>
+
+    {/* Title */}
+    <h3 className="font-editorial" style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.75rem)', fontWeight: 700, color: '#1A1410', lineHeight: 1.3, marginBottom: '1rem' }}>
+      {pub.title}
+    </h3>
+
+    {/* Authors */}
+    <div className="font-garamond" style={{ fontSize: '1.1rem', color: '#5C4A2E', borderLeft: '4px solid #8B2500', paddingLeft: '1rem', marginBottom: '1.5rem' }}>
+      {pub.authors.map((author, i) => (
+        <span key={i}>
+          {i > 0 && ', '}
+          {author === 'S. D. Singh' ? (
+            <span style={{ color: '#8B2500', fontWeight: 700 }}>{author}</span>
+          ) : author}
+        </span>
+      ))}
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+      {/* Body */}
+      <div>
+        <p className="font-academic" style={{ fontSize: '0.95rem', color: '#383020', lineHeight: 1.85, marginBottom: '0.75rem' }}>
+          {pub.description}
+        </p>
+        <div className="margin-note">
+          Evaluated on SUMO microsimulation under varying sensor failure rates. All improvements statistically significant (p&lt;0.01).
+        </div>
+      </div>
+
+      {/* Results sidebar */}
+      <div style={{ background: '#FAF6EE', border: '1px solid #E0D8C8', padding: '1.25rem' }}>
+        <p className="font-mono" style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#8B7355', fontWeight: 700, borderBottom: '1px solid #E0D8C8', paddingBottom: '0.5rem', marginBottom: '0.75rem' }}>
+          Table 1. SUMO Benchmark Results
+        </p>
+        {pub.benchmarks.map((b, i) => (
+          <div key={i}>
+            <div className="font-mono" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0.5rem 0' }}>
+              <span style={{ fontSize: '0.85rem', color: '#5C4A2E' }}>{b.label}</span>
+              <span style={{
+                fontSize: '1.5rem', fontWeight: 900,
+                color: b.color === 'accent' ? '#8B2500' : b.color === 'emerald' ? '#065f46' : '#2C2418'
+              }}>
+                {b.value}
+              </span>
+            </div>
+            {i < pub.benchmarks.length - 1 && <div style={{ height: '1px', background: '#E0D8C8' }} />}
+          </div>
+        ))}
+        <p className="font-academic" style={{ fontSize: '10px', color: '#8B7355', fontStyle: 'italic', marginTop: '0.5rem' }}>
+          All metrics relative to CoLight baseline on 4×4 arterial grid.
+        </p>
+      </div>
+    </div>
+
+    {/* Tags */}
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1.5rem' }}>
+      {pub.technologies.map((t, i) => <span key={i} className="paper-tag">{t}</span>)}
+    </div>
+
+    {/* Action bar */}
+    <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #E0D8C8', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+      <a href={pub.link} target="_blank" rel="noopener noreferrer" className="font-mono"
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+          background: '#2C2418', color: '#F0E8D8', padding: '0.75rem 1.5rem',
+          textDecoration: 'none', fontSize: '12px', fontWeight: 700,
+          textTransform: 'uppercase', letterSpacing: '0.1em',
+          transition: 'background 0.2s', boxShadow: '0 2px 8px rgba(44,36,24,0.15)'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.background = '#8B2500'}
+        onMouseLeave={(e) => e.currentTarget.style.background = '#2C2418'}
+      >
+        Read Full Paper on Frontiers →
+      </a>
+      <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>
+        Frontiers in Artificial Intelligence, 9, 1891950
+      </span>
+    </div>
+  </article>
 );
 
-const Publications = ({ publications }) => (
-  <Section id="publications" title="Publications">
-    <div className="max-w-5xl mx-auto space-y-8">
-      {publications.map((pub, index) => (
-        <div
-          key={index}
-          className="bg-slate-900/70 rounded-md shadow-xl overflow-hidden border border-slate-800 hover:border-indigo-600 hover:shadow-indigo-600/20 transition-all duration-300 backdrop-blur-sm p-6 sm:p-8"
+/* ═══════════════════
+   EXPERIENCE CARD
+   ═══════════════════ */
+const ExperienceCard = ({ job }) => (
+  <div className="paper-card" style={{ padding: '2rem', borderLeft: `4px solid ${job.isCurrent ? '#8B2500' : '#D4C9B0'}` }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '1rem' }}>
+      <div>
+        <h3 className="font-editorial" style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1A1410', margin: 0 }}>
+          {job.title}
+        </h3>
+        <a href={job.companyUrl} target="_blank" rel="noopener noreferrer" className="font-mono"
+          style={{ fontSize: '11px', color: '#8B2500', textDecoration: 'none' }}
+          onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+          onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
         >
-          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-3">
-            <div className="flex items-center gap-2">
-              <BookOpen className="text-indigo-400 flex-shrink-0" size={24} />
-              <span className="text-xs uppercase tracking-wider font-semibold text-indigo-400 bg-indigo-950/60 border border-indigo-500/30 px-3 py-1 rounded-full">
-                {pub.journal} &bull; {pub.year}
-              </span>
-            </div>
-            {pub.doi && (
-              <span className="text-xs text-gray-400 font-mono">
-                DOI: {pub.doi}
-              </span>
-            )}
-          </div>
-
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-100 font-orbitron mb-3 hover:text-indigo-300 transition-colors">
-            <a href={pub.link} target="_blank" rel="noopener noreferrer">
-              {pub.title}
-            </a>
-          </h3>
-
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <p className="text-sm sm:text-base text-gray-300 font-medium">
-              {pub.authors.split(', ').map((author, i) => {
-                const isUser = author.includes('S. D. Singh') || author.includes('Sidak Deep Singh');
-                return (
-                  <span key={i}>
-                    {i > 0 && ', '}
-                    {isUser ? (
-                      <span className="text-indigo-400 font-bold underline decoration-indigo-400/50 underline-offset-2">
-                        {author}
-                      </span>
-                    ) : (
-                      author
-                    )}
-                  </span>
-                );
-              })}
-            </p>
-            {pub.contributionNote && (
-              <span className="bg-indigo-950/70 text-indigo-300 border border-indigo-500/40 text-xs px-2.5 py-0.5 rounded-full font-mono">
-                {pub.contributionNote}
-              </span>
-            )}
-          </div>
-
-          <p className="text-gray-400 mb-6 leading-relaxed text-sm sm:text-base">
-            {pub.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {pub.technologies.map((tech, i) => (
-              <span
-                key={i}
-                className="bg-slate-800 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-4">
-            <a
-              href={pub.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-indigo-600/80 hover:bg-indigo-500 text-white font-medium py-2 px-5 rounded-md transition-all shadow-md shadow-indigo-500/20 hover:shadow-indigo-500/40 border border-indigo-500 text-sm"
-            >
-              <span>Read Full Paper</span>
-              <ExternalLink size={16} />
-            </a>
-            {pub.doi && (
-              <a
-                href={`https://doi.org/${pub.doi}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-indigo-400 hover:text-indigo-300 hover:underline"
-              >
-                https://doi.org/{pub.doi}
-              </a>
-            )}
-          </div>
-        </div>
-      ))}
+          {job.company} &bull; {job.location}
+        </a>
+      </div>
+      <span className="font-mono" style={{
+        fontSize: '10px', color: '#8B7355', background: '#FAF6EE',
+        padding: '0.25rem 0.75rem', border: '1px solid #E0D8C8', whiteSpace: 'nowrap'
+      }}>
+        {job.date}
+      </span>
     </div>
-  </Section>
-);
-
-const Projects = ({ projects }) => (
-  <Section id="projects" title="My Projects">
-    <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-      {projects.map((project, index) => (
-        <div key={index} className="bg-slate-900/70 rounded-md shadow-xl overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col border border-slate-800 hover:border-indigo-600 hover:shadow-indigo-600/20 backdrop-blur-sm">
-          <div className="p-6 flex-grow">
-            <h3 className="text-2xl font-bold mb-2 text-indigo-400 font-orbitron">{project.title}</h3>
-            <p className="text-gray-400 mb-4 flex-grow">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.technologies.map((tech, i) => (
-                <span key={i} className="bg-slate-800 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full">{tech}</span>
-              ))}
-            </div>
-          </div>
-          <div className="p-6 bg-slate-950/50 border-t border-slate-800">
-             <a href={project.link} target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-indigo-400 transition-colors duration-300 flex items-center">
-              {project.link.includes('kaggle.com') ? 'View on Kaggle' : 'View on GitHub'}
-              {project.link.includes('kaggle.com') ? (
-                <svg className="ml-2" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.330-.248.495-.248h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.334"/>
-                </svg>
-              ) : (
-                <Github size={18} className="ml-2" />
-              )}
-            </a>
-          </div>
-        </div>
+    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      {job.description.map((d, i) => (
+        <li key={i} className="font-academic" style={{ fontSize: '0.875rem', color: '#383020', lineHeight: 1.7, display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <span style={{ color: '#8B2500', fontWeight: 700, marginTop: '2px', flexShrink: 0 }}>›</span>
+          <span>{d}</span>
+        </li>
       ))}
-    </div>
-  </Section>
+    </ul>
+    {job.technologies && (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.75rem' }}>
+        {job.technologies.map((t, i) => <span key={i} className="paper-tag">{t}</span>)}
+      </div>
+    )}
+  </div>
 );
 
-const Skills = ({ skills, skillUsage, setTooltip }) => {
-    const handleMouseEnter = (e, skill) => {
-        const usage = skillUsage[skill];
-        if (usage && usage.length > 0) {
-            setTooltip({
-                visible: true,
-                content: usage,
-                x: e.clientX,
-                y: e.clientY
-            });
-        }
-    };
-
-    const handleMouseLeave = () => {
-        setTooltip(prev => ({ ...prev, visible: false }));
-    };
-
-    return (
-      <Section id="skills" title="Skills & Technologies">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex flex-wrap justify-center gap-3">
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="bg-slate-800/80 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-600/80 hover:scale-105 transition-all duration-300 cursor-default border border-slate-700 hover:border-indigo-600"
-                onMouseEnter={(e) => handleMouseEnter(e, skill)}
-                onMouseLeave={handleMouseLeave}
-              >
-                {skill}
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-    );
-};
-
-const Tooltip = ({ visible, content, x, y }) => {
-    if (!visible) return null;
-
-    const tooltipStyle = {
-        position: 'fixed',
-        top: `${y + 25}px`,
-        left: `${x}px`,
-        transform: 'translateX(-50%)',
-        pointerEvents: 'none',
-    };
-
-    return (
-        <div style={tooltipStyle} className="bg-slate-950 border border-indigo-500 rounded-md p-3 shadow-lg z-50 max-w-xs transition-opacity duration-300 animate-fade-in">
-            <p className="font-bold text-indigo-400 mb-2 text-sm">Used In:</p>
-            <ul className="space-y-1">
-                {content.map((item, index) => (
-                    <li key={index}>
-                        <a href={item.link} className="text-xs text-gray-300 hover:text-white hover:underline pointer-events-auto">
-                            - {item.name} <span className="text-xs text-gray-500">({item.type})</span>
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
-
-
-const Education = ({ education }) => (
-    <Section id="education" title="Education">
-        <div className="max-w-4xl mx-auto">
-            {education.map((edu, index) => (
-                <div key={index} className="bg-slate-900/70 p-6 rounded-md shadow-xl mb-6 border border-slate-800 hover:border-indigo-600 transition-colors duration-300 backdrop-blur-sm">
-                    <div className="flex justify-between items-start flex-col sm:flex-row">
-                        <div className="flex-grow text-left">
-                            <h3 className="text-xl font-bold text-indigo-400 font-orbitron">{edu.degree}</h3>
-                            <p className="text-lg text-gray-300">{edu.institution}, {edu.location}</p>
-                            {edu.cgpa && (
-                               <p className="text-sm text-gray-400 mt-1">CGPA: {edu.cgpa}</p>
-                            )}
-                        </div>
-                        <div className="text-left sm:text-right mt-4 sm:mt-0">
-                             <p className="text-md text-gray-400">{edu.date}</p>
-                             {edu.transcriptUrl && (
-                                <a href={edu.transcriptUrl} download className="inline-block mt-2 text-xs text-indigo-400 border border-indigo-400 px-3 py-1 rounded-md hover:bg-indigo-500 hover:text-slate-950 transition-colors duration-300">
-                                    Download Transcript
-                                </a>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </Section>
-);
-
-const Footer = ({ contact }) => (
-  <footer id="contact" className="bg-slate-950 text-white py-12 relative overflow-hidden border-t border-slate-800">
-    <div className="container mx-auto text-center relative z-20">
-      <h2 className="text-3xl font-bold font-orbitron mb-4">Get In Touch</h2>
-      <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out!
+/* ═══════════════════
+   PROJECT CARD
+   ═══════════════════ */
+const ProjectCard = ({ project, index, isWide }) => (
+  <div className="paper-card" style={{
+    padding: '1.5rem',
+    display: 'flex', flexDirection: isWide ? 'row' : 'column',
+    justifyContent: 'space-between', gap: isWide ? '1.5rem' : 0,
+    gridColumn: isWide ? '1 / -1' : undefined,
+    alignItems: isWide ? 'center' : 'stretch',
+    cursor: 'default'
+  }}>
+    <div style={{ flex: 1 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+        <span className="font-mono" style={{ fontSize: '10px', color: '#8B2500', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+          Fig. {index + 1}
+        </span>
+        <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>{project.category}</span>
+      </div>
+      <h3 className="font-editorial" style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1A1410', marginBottom: '0.5rem', transition: 'color 0.2s' }}>
+        {project.title}
+      </h3>
+      <p className="font-academic" style={{ fontSize: '0.8rem', color: '#5C4A2E', lineHeight: 1.7, marginBottom: '0.75rem' }}>
+        {project.description}
       </p>
-
-      <div className="mb-8 space-y-4">
-        <a href={`mailto:${contact.email}`} className="text-lg text-indigo-400 hover:underline hover:drop-shadow-[0_0_4px_rgba(129,140,248,0.6)] flex items-center justify-center gap-3 transition-all">
-            <Mail size={20} /> <span>{contact.email}</span>
-        </a>
-        <a href={contact.discordLink} target="_blank" rel="noopener noreferrer" className="text-lg text-indigo-400 hover:underline hover:drop-shadow-[0_0_4px_rgba(129,140,248,0.6)] flex items-center justify-center gap-3 transition-all">
-            <DiscordIcon size={20} /> <span>{contact.discordUsername}</span>
-        </a>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+        {project.technologies.map((t, i) => <span key={i} className="paper-tag">{t}</span>)}
       </div>
-
-      <div className="flex justify-center space-x-8 mb-8">
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 transform hover:scale-110" aria-label="LinkedIn">
-          <Linkedin size={30} />
-        </a>
-        <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 transform hover:scale-110" aria-label="GitHub">
-          <Github size={30} />
-        </a>
-        <a href="https://www.kaggle.com/haruki23" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 transform hover:scale-110" aria-label="Kaggle">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.330-.248.495-.248h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.334"/>
-          </svg>
-        </a>
-      </div>
-      <p className="text-gray-500">&copy; {new Date().getFullYear()} Sidak Deep Singh. All rights reserved.</p>
     </div>
-  </footer>
+    <div style={{
+      borderTop: isWide ? 'none' : '1px solid #E0D8C8',
+      borderLeft: isWide ? '1px solid #E0D8C8' : 'none',
+      paddingTop: isWide ? 0 : '1rem',
+      paddingLeft: isWide ? '1.5rem' : 0,
+      marginTop: isWide ? 0 : '1rem',
+      flexShrink: 0
+    }}>
+      <a href={project.link} target="_blank" rel="noopener noreferrer" className="font-mono"
+        style={{ fontSize: '11px', fontWeight: 700, color: '#8B2500', textDecoration: 'none', whiteSpace: 'nowrap' }}
+        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+      >
+        {project.link.includes('kaggle') ? 'View on Kaggle' : 'View on GitHub'} →
+      </a>
+    </div>
+  </div>
 );
 
-const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => {
-    if (window.pageYOffset > 300) setIsVisible(true);
-    else setIsVisible(false);
+/* ══════════════════════════════════════════════════════════
+   SKILL TAGS SECTION WITH INTERACTIVE USAGE HOVER
+   ══════════════════════════════════════════════════════════ */
+const SkillsSection = ({ skills, skillUsage, setTooltip }) => {
+  const handleMouseEnter = (e, skill) => {
+    const usage = skillUsage[skill];
+    if (usage && usage.length > 0) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setTooltip({
+        visible: true,
+        skill: skill,
+        content: usage,
+        x: rect.left + rect.width / 2,
+        y: rect.bottom + 4
+      });
+    }
   };
-  const scrollToTop = () => {
-    const scrollStep = -window.scrollY / (500 / 15); // Animation duration ~500ms
-    const scrollInterval = setInterval(() => {
-      if (window.scrollY !== 0) {
-        window.scrollBy(0, scrollStep);
-      } else {
-        clearInterval(scrollInterval);
-      }
-    }, 15);
+
+  const handleMouseLeave = () => {
+    setTooltip(prev => ({ ...prev, visible: false }));
   };
-  useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+
   return (
-    <button
-      onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 bg-indigo-600/80 text-white p-3 rounded-md shadow-lg hover:bg-indigo-500 transition-all duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'} transform ${isVisible ? 'scale-100' : 'scale-50'} border border-indigo-500 shadow-indigo-500/30 z-50`}
-      aria-label="Go to top"
-    >
-      <ChevronsUp size={24} />
-    </button>
+    <div style={{ position: 'relative' }}>
+      <p className="font-academic" style={{ fontSize: '12px', color: '#8B7355', fontStyle: 'italic', marginBottom: '1rem' }}>
+        Hover or tap any skill tag below to view its citations across publications, applied research, and codebases.
+      </p>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+        {skills.map((skill, i) => {
+          const hasUsage = skillUsage[skill] && skillUsage[skill].length > 0;
+          return (
+            <span
+              key={i}
+              className={`paper-tag ${hasUsage ? 'paper-tag-interactive' : ''}`}
+              onMouseEnter={(e) => handleMouseEnter(e, skill)}
+              onMouseLeave={handleMouseLeave}
+              onClick={(e) => handleMouseEnter(e, skill)}
+              title={hasUsage ? `Used in ${skillUsage[skill].length} works` : undefined}
+            >
+              {skill}
+              {hasUsage && (
+                <span style={{
+                  marginLeft: '4px',
+                  opacity: 0.6,
+                  fontSize: '9px'
+                }}>
+                  •
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
-export default function App() {
-  const [tooltip, setTooltip] = useState({ visible: false, content: [], x: 0, y: 0 });
+/* ═══════════════════
+   EDUCATION CARD
+   ═══════════════════ */
+const EducationCard = ({ edu }) => (
+  <div className="paper-card" style={{ padding: '1.5rem', borderLeft: `4px solid ${edu.isCurrent ? '#8B2500' : '#D4C9B0'}` }}>
+    <span className="font-mono" style={{ fontSize: '10px', color: edu.isCurrent ? '#8B2500' : '#8B7355', fontWeight: edu.isCurrent ? 700 : 400 }}>
+      {edu.date}
+    </span>
+    <h3 className="font-editorial" style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1A1410', margin: '0.25rem 0' }}>
+      {edu.degree}
+    </h3>
+    <p className="font-academic" style={{ fontSize: '0.875rem', color: '#5C4A2E', margin: '0 0 0.5rem' }}>
+      {edu.institution} &bull; {edu.location}
+    </p>
+    <div className="font-mono" style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', fontSize: '0.875rem' }}>
+      <span style={{ color: '#8B7355' }}>CGPA:</span>
+      <span style={{ fontSize: '1.75rem', fontWeight: 900, color: '#2C2418' }}>{edu.cgpa}</span>
+    </div>
+    {edu.transcriptUrl && (
+      <a href={edu.transcriptUrl} download className="font-mono"
+        style={{ display: 'inline-block', marginTop: '0.5rem', fontSize: '10px', color: '#8B2500', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em' }}
+        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+      >
+        Download Transcript (PDF) →
+      </a>
+    )}
+  </div>
+);
 
+/* ═══════════════════
+   FOOTER / CONTACT
+   ═══════════════════ */
+const Footer = ({ contact }) => (
+  <footer id="contact" style={{ borderTop: '2px solid #2C2418', paddingTop: '2.5rem', paddingBottom: '3.5rem' }}>
+    <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+      <h2 className="font-editorial" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2C2418', marginBottom: '0.5rem' }}>
+        Get In Touch
+      </h2>
+      <p className="font-academic" style={{ fontSize: '0.9rem', color: '#5C4A2E', maxWidth: '28rem', margin: '0 auto' }}>
+        I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
+      </p>
+    </div>
+
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem 2rem', marginBottom: '1.5rem' }}>
+      <a href={`mailto:${contact.email}`} className="font-mono"
+        style={{ fontSize: '12px', color: '#8B2500', textDecoration: 'none', fontWeight: 600 }}
+        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+      >
+        ✉ {contact.email}
+      </a>
+      <a href={contact.discordLink} target="_blank" rel="noopener noreferrer" className="font-mono"
+        style={{ fontSize: '12px', color: '#8B2500', textDecoration: 'none', fontWeight: 600 }}
+        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+      >
+        ⊹ Discord: {contact.discordUsername}
+      </a>
+    </div>
+
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
+      {[
+        { label: 'GitHub', href: contact.github },
+        { label: 'LinkedIn', href: contact.linkedin },
+        { label: 'Kaggle', href: contact.kaggle },
+      ].map(l => (
+        <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer" className="font-mono"
+          style={{ fontSize: '11px', color: '#8B7355', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.1em' }}
+          onMouseEnter={(e) => e.target.style.color = '#8B2500'}
+          onMouseLeave={(e) => e.target.style.color = '#8B7355'}
+        >
+          {l.label}
+        </a>
+      ))}
+    </div>
+
+    <p className="font-mono" style={{ textAlign: 'center', fontSize: '10px', color: '#8B7355', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
+      End of Monograph &bull; &copy; {new Date().getFullYear()} Sidak Deep Singh
+    </p>
+    <p className="font-garamond" style={{ textAlign: 'center', fontSize: '0.85rem', fontStyle: 'italic', color: '#8B7355', marginTop: '0.25rem' }}>
+      Typeset in Playfair Display, Newsreader &amp; Cormorant Garamond. Printed on digital parchment.
+    </p>
+  </footer>
+);
+
+/* ═══════════════════
+   APP
+   ═══════════════════ */
+export default function App() {
+  const d = portfolioData;
+
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    skill: '',
+    content: [],
+    x: 0,
+    y: 0
+  });
+
+  // Calculate skill usage map across publications, experience, projects, and education
   const { sortedSkills, skillUsage } = useMemo(() => {
     const usage = {};
     const counts = {};
 
-    const allTechnologies = [
-        ...portfolioData.experience.flatMap(e => e.technologies || []),
-        ...(portfolioData.publications ? portfolioData.publications.flatMap(p => p.technologies || []) : []),
-        ...portfolioData.projects.flatMap(p => p.technologies || [])
-    ];
-
-    allTechnologies.forEach(tech => {
-        counts[tech] = (counts[tech] || 0) + 1;
-    });
-
-    const sorted = [...new Set(portfolioData.skills)].sort((a, b) => {
-        return (counts[b] || 0) - (counts[a] || 0);
-    });
-
     const addToUsage = (tech, itemInfo) => {
-        if (!usage[tech]) {
-            usage[tech] = [];
-        }
-        if (!usage[tech].some(i => i.name === itemInfo.name)) {
-            usage[tech].push(itemInfo);
-        }
+      if (!usage[tech]) {
+        usage[tech] = [];
+      }
+      if (!usage[tech].some(i => i.name === itemInfo.name)) {
+        usage[tech].push(itemInfo);
+      }
     };
 
-    if (portfolioData.publications) {
-        portfolioData.publications.forEach(pub => {
-            if (pub.technologies) {
-                pub.technologies.forEach(tech => {
-                    addToUsage(tech, { name: pub.title, type: 'publication', link: '#publications' });
-                });
-            }
+    // Publication
+    d.publications.forEach(pub => {
+      if (pub.technologies) {
+        pub.technologies.forEach(tech => {
+          counts[tech] = (counts[tech] || 0) + 1;
+          addToUsage(tech, { name: pub.shortTitle || pub.title, type: 'Publication', link: '#publications' });
         });
-    }
-
-    portfolioData.projects.forEach(project => {
-        project.technologies.forEach(tech => {
-            addToUsage(tech, { name: project.title, type: 'project', link: '#projects' });
-        });
+      }
     });
 
-    portfolioData.experience.forEach(exp => {
-        if (exp.technologies) {
-            exp.technologies.forEach(tech => {
-                addToUsage(tech, { name: exp.title, type: 'experience', link: '#experience' });
-            });
-        }
+    // Experience
+    d.experience.forEach(exp => {
+      if (exp.technologies) {
+        exp.technologies.forEach(tech => {
+          counts[tech] = (counts[tech] || 0) + 1;
+          addToUsage(tech, { name: `${exp.company} (${exp.title})`, type: 'Experience', link: '#experience' });
+        });
+      }
     });
+
+    // Projects
+    d.projects.forEach(proj => {
+      if (proj.technologies) {
+        proj.technologies.forEach(tech => {
+          counts[tech] = (counts[tech] || 0) + 1;
+          addToUsage(tech, { name: proj.title, type: 'Project', link: '#projects' });
+        });
+      }
+    });
+
+    // Education / Foundational Coursework
+    d.education.forEach(edu => {
+      if (edu.courseworkTech) {
+        edu.courseworkTech.forEach(tech => {
+          counts[tech] = (counts[tech] || 0) + 1;
+          addToUsage(tech, { name: `${edu.institution} (${edu.degree})`, type: 'Academic', link: '#education' });
+        });
+      }
+    });
+
+    // Keep all skills from portfolioData.skills, sorted by usage frequency
+    const sorted = [...new Set(d.skills)].sort((a, b) => {
+      return (counts[b] || 0) - (counts[a] || 0);
+    });
+
     return { sortedSkills: sorted, skillUsage: usage };
-  }, []);
-
-  useEffect(() => {
-    const fontId = 'google-fonts-orbitron-roboto';
-    if (!document.getElementById(fontId)) {
-      const fontLink = document.createElement('link');
-      fontLink.id = fontId;
-      fontLink.href = "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500;700&display=swap";
-      fontLink.rel = 'stylesheet';
-      document.head.appendChild(fontLink);
-    }
-    document.body.style.fontFamily = "'Roboto', sans-serif";
-  }, []);
+  }, [d]);
 
   return (
-    <div className="leading-normal tracking-tight relative overflow-x-hidden">
-      <ParticleBackground />
-      <div className="relative z-10">
-        <Header name={portfolioData.name} resumeUrl={portfolioData.resumeUrl} />
-        <main>
-          <Hero
-            name={portfolioData.name}
-            title={portfolioData.title}
-            summary={portfolioData.summary}
-            contact={portfolioData.contact}
-          />
-          <Experience experience={portfolioData.experience} />
-          <Publications publications={portfolioData.publications} />
-          <Skills skills={sortedSkills} skillUsage={skillUsage} setTooltip={setTooltip} />
-          <Projects projects={portfolioData.projects} />
-          <Education education={portfolioData.education} />
-        </main>
-        <Footer contact={portfolioData.contact} />
-        <ScrollToTopButton />
-        <Tooltip visible={tooltip.visible} content={tooltip.content} x={tooltip.x} y={tooltip.y} />
+    <>
+      <StyleInjector />
+      <Colophon contact={d.contact} />
+      <StickyNav name={d.name} resumeUrl={d.resumeUrl} />
+
+      <div style={{ maxWidth: '52rem', margin: '0 auto', padding: '0 1.5rem' }}>
+        <Masthead data={d} />
+
+        <hr className="ornamental-rule" />
+
+        {/* 01 — Experience */}
+        <MonoSection id="experience" number="01" title="Research Appointments"
+          subtitle="Professional Experience • 2025 — Present">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {d.experience.map((job, i) => <ExperienceCard key={i} job={job} />)}
+          </div>
+        </MonoSection>
+
+        <hr className="ornamental-rule" />
+
+        {/* 02 — Publication */}
+        <MonoSection id="publications" number="02" title="Peer-Reviewed Publication"
+          subtitle={`${d.publications[0].journal} • ${d.publications[0].volume} • ${d.publications[0].year} • Open Access`}>
+          <Publication pub={d.publications[0]} />
+        </MonoSection>
+
+        <hr className="ornamental-rule" />
+
+        {/* 03 — Projects */}
+        <MonoSection id="projects" number="03" title="Engineering & Applied Projects"
+          subtitle={`Selected Works • ${d.projects.length} Codebases`}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            {d.projects.map((p, i) => (
+              <ProjectCard key={i} project={p} index={i} isWide={i === d.projects.length - 1 && d.projects.length % 2 !== 0} />
+            ))}
+          </div>
+        </MonoSection>
+
+        <hr className="ornamental-rule" />
+
+        {/* 04 — Skills (ABOVE Education) */}
+        <MonoSection id="skills" number="04" title="Methodological Taxonomy"
+          subtitle={`Technical Competencies • ${sortedSkills.length} Technologies • Appendix A`}>
+          <SkillsSection skills={sortedSkills} skillUsage={skillUsage} setTooltip={setTooltip} />
+        </MonoSection>
+
+        <hr className="ornamental-rule" />
+
+        {/* 05 — Education */}
+        <MonoSection id="education" number="05" title="Formal Education"
+          subtitle="Academic Background">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            {d.education.map((edu, i) => <EducationCard key={i} edu={edu} />)}
+          </div>
+        </MonoSection>
+
+        <hr className="ornamental-rule" />
+
+        {/* Footer / Contact */}
+        <Footer contact={d.contact} />
       </div>
-    </div>
+
+      <ScrollToTop />
+      <SkillTooltip
+        visible={tooltip.visible}
+        skill={tooltip.skill}
+        content={tooltip.content}
+        x={tooltip.x}
+        y={tooltip.y}
+        onClose={() => setTooltip(prev => ({ ...prev, visible: false }))}
+      />
+    </>
   );
 }
