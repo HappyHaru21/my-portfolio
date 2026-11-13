@@ -45,7 +45,8 @@ const portfolioData = {
   publications: [
     {
       title: "Beyond static snapshots: gated recurrent units and graph attention networks for smarter multi-agent traffic control",
-      authors: "Mohita, S. D. Singh, D. Subitha, J. C. Kavitha",
+      authors: "Mohita*, S. D. Singh*, D. Subitha, J. C. Kavitha",
+      contributionNote: "*Joint First Authors (Equal Contribution)",
       journal: "Frontiers in Artificial Intelligence",
       year: "2026",
       volume: "Volume 9",
@@ -435,23 +436,30 @@ const Publications = ({ publications }) => (
             </a>
           </h3>
 
-          <p className="text-sm sm:text-base text-gray-300 mb-4 font-medium">
-            {pub.authors.split(', ').map((author, i) => {
-              const isUser = author.includes('S. D. Singh') || author.includes('Sidak Deep Singh');
-              return (
-                <span key={i}>
-                  {i > 0 && ', '}
-                  {isUser ? (
-                    <span className="text-indigo-400 font-bold underline decoration-indigo-400/50 underline-offset-2">
-                      {author}
-                    </span>
-                  ) : (
-                    author
-                  )}
-                </span>
-              );
-            })}
-          </p>
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <p className="text-sm sm:text-base text-gray-300 font-medium">
+              {pub.authors.split(', ').map((author, i) => {
+                const isUser = author.includes('S. D. Singh') || author.includes('Sidak Deep Singh');
+                return (
+                  <span key={i}>
+                    {i > 0 && ', '}
+                    {isUser ? (
+                      <span className="text-indigo-400 font-bold underline decoration-indigo-400/50 underline-offset-2">
+                        {author}
+                      </span>
+                    ) : (
+                      author
+                    )}
+                  </span>
+                );
+              })}
+            </p>
+            {pub.contributionNote && (
+              <span className="bg-indigo-950/70 text-indigo-300 border border-indigo-500/40 text-xs px-2.5 py-0.5 rounded-full font-mono">
+                {pub.contributionNote}
+              </span>
+            )}
+          </div>
 
           <p className="text-gray-400 mb-6 leading-relaxed text-sm sm:text-base">
             {pub.description}
