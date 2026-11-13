@@ -327,6 +327,23 @@ const StyleInjector = () => {
         }
 
         /* Navigation styling */
+        .desktop-nav {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+        .mobile-nav-toggle {
+          display: none;
+        }
+        @media (max-width: 860px) {
+          .desktop-nav {
+            display: none !important;
+          }
+          .mobile-nav-toggle {
+            display: flex !important;
+          }
+        }
+
         .sticky-nav-item {
           color: #5C4A2E;
           text-decoration: none;
@@ -512,7 +529,7 @@ const StickyNav = ({ name, resumeUrl }) => {
         </a>
 
         {/* Desktop Quick Travel Links */}
-        <nav style={{ display: 'none' }} className="md:flex md:items-center md:gap-1">
+        <nav className="desktop-nav">
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -561,7 +578,7 @@ const StickyNav = ({ name, resumeUrl }) => {
         </nav>
 
         {/* Mobile Hamburger Button */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="mobile-nav-toggle items-center gap-2">
           <a
             href={resumeUrl}
             download="Sidak_Deep_Singh_resume.pdf"
