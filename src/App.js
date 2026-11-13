@@ -99,6 +99,7 @@ const portfolioData = {
       id: "proj-cherokee",
       title: "Cherokee–English Translation with Gemma-3N",
       category: "LLM / NLP",
+      year: "2025",
       description: "Fine-tuned Google's Gemma-3N large language model for high-quality Cherokee→English translation using a custom parallel corpus. Leveraged Unsloth's quantization (4-bit and FP16) and LoRA adapters on 0.25% of weights, cutting GPU memory usage by >80% across 14,151 sentence pairs.",
       technologies: [
         "Large Language Models",
@@ -115,6 +116,7 @@ const portfolioData = {
       id: "proj-chatbot",
       title: "Multimodal AI Chatbot",
       category: "Full-Stack AI",
+      year: "2024",
       description: "Built and deployed a chatbot handling text, image, and audio using LLM and vision models. Implemented real-time streaming, robust file validation, and direct cloud inference via Groq Vision API.",
       technologies: [
         "FastAPI",
@@ -133,6 +135,7 @@ const portfolioData = {
       id: "proj-mood",
       title: "Mood Analyser & Playlist Generator",
       category: "MERN Stack",
+      year: "2024",
       description: "Developed a full-stack app to log user moods, visualize trends, and create Spotify-based playlists. Engineered interactive mood tracking, user authentication, and live charting.",
       technologies: [
         "React",
@@ -150,6 +153,7 @@ const portfolioData = {
       id: "proj-vision",
       title: "BeMyVision-Environmental Captioning",
       category: "Computer Vision",
+      year: "2024",
       description: "Prepared a real-time image captioning system using BLIP and YOLOv3 models. Integrated text-to-speech conversion and OCR for reading text aloud.",
       technologies: [
         "Python",
@@ -166,6 +170,7 @@ const portfolioData = {
       id: "proj-search",
       title: "Parallel Search using OpenMP",
       category: "HPC / Systems",
+      year: "2023",
       description: "Implemented a parallel search algorithm with OpenMP to optimize CSV file processing, decreasing search time by 30%. Developed a Qt-based GUI.",
       technologies: [
         "C/C++",
@@ -1065,10 +1070,27 @@ const ProjectCard = ({ project, index, isWide }) => (
   }}>
     <div style={{ flex: 1 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-        <span className="font-mono" style={{ fontSize: '10px', color: '#8B2500', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Fig. {index + 1}
-        </span>
-        <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>{project.category}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span className="font-mono" style={{ fontSize: '10px', color: '#8B2500', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            Fig. {index + 1}
+          </span>
+          <span style={{ color: '#D4C9B0', fontSize: '10px' }}>•</span>
+          <span className="font-mono" style={{ fontSize: '10px', color: '#8B7355' }}>{project.category}</span>
+        </div>
+        {project.year && (
+          <span className="font-mono" style={{
+            fontSize: '9.5px',
+            color: '#8B7355',
+            background: '#FAF6EE',
+            border: '1px solid #E0D8C8',
+            padding: '1px 6px',
+            borderRadius: '3px',
+            fontWeight: 600,
+            letterSpacing: '0.04em'
+          }}>
+            {project.year}
+          </span>
+        )}
       </div>
       <h3 className="font-editorial" style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1A1410', marginBottom: '0.5rem', transition: 'color 0.2s' }}>
         {project.title}
